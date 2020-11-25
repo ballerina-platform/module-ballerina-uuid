@@ -17,6 +17,6 @@
 import ballerina/test;
 
 @test:Config {}
-function testRandomString() {
-    test:assertEquals(uuid().length(), 36);
+isolated function testNewType4AsString() {
+    test:assertEquals(newType4AsString().length(), 36);
 }

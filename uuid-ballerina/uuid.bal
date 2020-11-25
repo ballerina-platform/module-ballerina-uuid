@@ -16,14 +16,14 @@
 
 import ballerina/java;
 
-# Returns a random UUID string.
+# Returns a UUID of type 4 as a string.
 # ```ballerina
-# string providerId = uuid:uuid();
+# string uuid4 = uuid:newType4AsString();
 # ```
 #
-# + return - The random string
-public isolated function uuid() returns string {
-    var result = java:toString(nativeUuid());
+# + return - UUID of type 4 as a string.
+public isolated function newType4AsString() returns string {
+    var result = java:toString(newType4AsStringExtern());
     if (result is string) {
         return result;
     } else {
@@ -31,7 +31,7 @@ public isolated function uuid() returns string {
     }
 }
 
-isolated function nativeUuid() returns handle = @java:Method {
+isolated function newType4AsStringExtern() returns handle = @java:Method {
     name: "randomUUID",
     'class: "java.util.UUID"
 } external;
