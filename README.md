@@ -1,2 +1,2 @@
-# module-ballerina-uuid
+# Ballerina UUID Module
 Ballerina UUID Module.
