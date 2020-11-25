@@ -27,6 +27,7 @@ dependencies {
     jbalTools ("org.ballerinalang:jballerina-tools:${ballerinaLangVersion}") {
         transitive = false
     }
+    compile project(':uuid-native')
 }
 
 clean {
@@ -158,5 +159,6 @@ publishing {
     }
 }
 
+ballerinaBuild.dependsOn ":uuid-native:build"
 ballerinaBuild.dependsOn unpackJballerinaTools
 build.dependsOn ballerinaBuild

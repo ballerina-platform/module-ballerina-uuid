@@ -21,7 +21,7 @@ import ballerina/java;
 # string uuid4 = uuid:newType4AsString();
 # ```
 #
-# + return - UUID of type 4 as a string.
+# + return - UUID of type 4 as a string
 public isolated function newType4AsString() returns string {
     var result = java:toString(newType4AsStringExtern());
     if (result is string) {

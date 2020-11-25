@@ -13,7 +13,7 @@ plugins {
 
 rootProject.name = 'uuid'
 include(':build-config:checkstyle')
-include ':uuid-ballerina'
+include ':uuid-native', ':uuid-ballerina'
 
 gradleEnterprise {
     buildScan {

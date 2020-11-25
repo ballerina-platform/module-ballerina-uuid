@@ -2,3 +2,9 @@
 org = "ballerina"
 name = "uuid"
 version = "0.1.0"
+
+[[platform.java11.dependency]]
+path = "../uuid-native/build/libs/uuid-native-@project.version@.jar"
+groupId = "ballerina"
+artifactId = "uuid"
+version = "@project.version@"
