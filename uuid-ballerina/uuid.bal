@@ -35,3 +35,16 @@ isolated function newType4AsStringExtern() returns handle = @java:Method {
     name: "randomUUID",
     'class: "java.util.UUID"
 } external;
+
+# Returns a UUID of type 3 as a string.
+# ```ballerina
+# string uuid3 = uuid:newType3AsString([10, 20, 30]);
+# ```
+#
+# + name - the byte array to be used to construct the UUID
+#
+# + return - UUID of type 3 as a string
+public isolated function newType3AsString(byte[] name) returns string = @java:Method {
+    name: "nameUUIDFromBytes",
+    'class: "org.ballerinalang.stdlib.uuid.nativeimpl.Util"
+} external;

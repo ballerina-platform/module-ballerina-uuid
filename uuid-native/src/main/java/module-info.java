@@ -17,5 +17,6 @@
  */
 
 module io.ballerina.stdlib.system {
+    requires io.ballerina.runtime;
     exports org.ballerinalang.stdlib.uuid.nativeimpl;
 }

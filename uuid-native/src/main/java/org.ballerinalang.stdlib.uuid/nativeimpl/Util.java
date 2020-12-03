@@ -18,6 +18,20 @@
 
 package org.ballerinalang.stdlib.uuid.nativeimpl;
 
-public class UUID {
+import io.ballerina.runtime.api.creators.ErrorCreator;
+import io.ballerina.runtime.api.values.BArray;
+import io.ballerina.runtime.api.values.BString;
+import io.ballerina.runtime.api.utils.StringUtils;
 
+import java.util.UUID;
+
+public class Util {
+    public static BString nameUUIDFromBytes(BArray name) {
+        try {
+            return StringUtils.fromString(UUID.nameUUIDFromBytes(name.getBytes()).toString());
+        } catch (Exception e) {
+            // Todo: update the error message
+            throw ErrorCreator.createError(StringUtils.fromString("failed to generate uuid"));
+        }
+    }
 }

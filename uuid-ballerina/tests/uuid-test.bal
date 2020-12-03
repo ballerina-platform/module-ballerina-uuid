@@ -20,3 +20,9 @@ import ballerina/test;
 isolated function testNewType4AsString() {
     test:assertEquals(newType4AsString().length(), 36);
 }
+
+@test:Config {}
+isolated function testNewType3AsString() {
+    byte[] nbyte = [10, 20, 30];
+    test:assertEquals(newType3AsString(nbyte).length(), 36);
+}
