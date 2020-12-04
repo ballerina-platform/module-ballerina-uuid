@@ -26,3 +26,8 @@ isolated function testNewType3AsString() {
     byte[] nbyte = [10, 20, 30];
     test:assertEquals(newType3AsString(nbyte).length(), 36);
 }
+
+@test:Config {}
+isolated function testValidate() {
+    test:assertTrue(validate("4397465e-35f9-11eb-adc1-0242ac120002"));
+}

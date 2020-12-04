@@ -64,6 +64,14 @@ allprojects {
                 password System.getenv("packagePAT")
             }
         }
+
+        maven {
+            url = 'https://maven.pkg.github.com/ballerina-platform/module-ballerina-stringutils'
+            credentials {
+                username System.getenv("packageUser")
+                password System.getenv("packagePAT")
+            }
+        }
     }
 }
 
@@ -72,6 +80,11 @@ subprojects {
 
     configurations {
         ballerinaStdLibs
+    }
+
+    dependencies {
+        /* Standard libraries */
+        ballerinaStdLibs "org.ballerinalang:stringutils-ballerina:${project.stdlibStringUtilsVersion}"
     }
 }
 def moduleVersion = project.version

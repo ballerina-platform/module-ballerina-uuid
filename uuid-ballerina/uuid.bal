@@ -15,6 +15,7 @@
 // under the License.
 
 import ballerina/java;
+import ballerina/stringutils;
 
 # Returns a UUID of type 4 as a string.
 # ```ballerina
@@ -48,3 +49,15 @@ public isolated function newType3AsString(byte[] name) returns string = @java:Me
     name: "nameUUIDFromBytes",
     'class: "org.ballerinalang.stdlib.uuid.nativeimpl.Util"
 } external;
+
+# Test a string to see if it is a valid UUID.
+# ```ballerina
+# boolean valid = uuid:validate(“6ec0bd7f-11c0-43da-975e-e0b”);
+# ```
+#
+# + uuid - UUID to be tested
+#
+# + return - true if a valied UUID, false if not
+public isolated function validate(string uuid) returns boolean {
+    return stringutils:matches(uuid, "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}");
+}
