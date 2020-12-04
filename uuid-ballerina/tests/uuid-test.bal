@@ -36,3 +36,11 @@ isolated function testValidate() {
 isolated function testNilAsString() {
     test:assertEquals(nilAsString(), "00000000-0000-0000-0000-000000000000");
 }
+
+@test:Config {}
+isolated function testUuidVersion() {
+    test:assertEquals(uuidVersion("4397465e-35f9-11eb-adc1-0242ac120002"), V1);
+    test:assertEquals(uuidVersion("a3bb189e-8bf9-3888-9912-ace4e6543002"), V3);
+    test:assertEquals(uuidVersion("66a9f41f-4066-46d1-a838-51952fe64ff3"), V4);
+    test:assertEquals(uuidVersion("a6edc906-2f9f-5fb2-a373-efac406f0ef2"), V5);
+}

@@ -17,6 +17,19 @@
 import ballerina/java;
 import ballerina/stringutils;
 
+# Represents the UUID versions.
+#
+# + V1- UUID generated using the MAC address of the computer and the time of generation
+# + V3- UUID generated using MD5 hashing and application-provided text string
+# + V4- UUID generated using a pseudo-random number generator
+# + V5- UUID generated using SHA-1 hashing and application-provided text string
+public enum Version {
+    V1,
+    V3,
+    V4,
+    V5
+}
+
 # Returns a UUID of type 4 as a string.
 # ```ballerina
 # string uuid4 = uuid:newType4AsString();
@@ -71,3 +84,40 @@ public isolated function validate(string uuid) returns boolean {
 public isolated function nilAsString() returns string {
     return "00000000-0000-0000-0000-000000000000";
 }
+
+# Detect RFC version of a UUID. Returns an error if the uuid is invalid.
+# ```ballerina
+# uuid:UUIDVersion|error v = uuid:uuidVersion(“6ed7f-11c0-43da-975e-2b”);
+# ```
+#
+# + uuid - UUID
+#
+# + return - uuid version, or error
+public isolated function uuidVersion(string uuid) returns Version|error {
+    int v = uuidVersionExtern(uuidObjectFromString(uuid));
+    if (v == 1) {
+        return V1;
+    } else if (v == 3) {
+        return V3;
+    } else if (v == 4) {
+        return V4;
+    } else if (v == 5) {
+        return V5;
+    } else {
+        if (!validate(uuid)) {
+            return error("invalid uuid");
+        } else {
+            return error("unsupported uuid type");
+        }
+    }
+}
+
+isolated function uuidVersionExtern(handle uuid) returns int = @java:Method {
+    name: "version",
+    'class: "java.util.UUID"
+} external;
+
+isolated function uuidObjectFromString(string uuid) returns handle = @java:Method {
+    name: "fromString",
+    'class: "org.ballerinalang.stdlib.uuid.nativeimpl.Util"
+} external;
