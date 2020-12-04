@@ -44,3 +44,8 @@ isolated function testUuidVersion() {
     test:assertEquals(uuidVersion("66a9f41f-4066-46d1-a838-51952fe64ff3"), V4);
     test:assertEquals(uuidVersion("a6edc906-2f9f-5fb2-a373-efac406f0ef2"), V5);
 }
+
+@test:Config {}
+isolated function testNewType1AsString() {
+    test:assertEquals(newType1AsString().length(), 36);
+}

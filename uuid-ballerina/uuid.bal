@@ -121,3 +121,14 @@ isolated function uuidObjectFromString(string uuid) returns handle = @java:Metho
     name: "fromString",
     'class: "org.ballerinalang.stdlib.uuid.nativeimpl.Util"
 } external;
+
+# Returns a UUID of type 1 as a string.
+# ```ballerina
+# string uuid1 = uuid:newType1AsString();
+# ```
+#
+# + return - UUID of type 1 as a string
+public isolated function newType1AsString() returns string = @java:Method {
+    name: "generateType1UUID",
+    'class: "org.ballerinalang.stdlib.uuid.nativeimpl.Util"
+} external;
