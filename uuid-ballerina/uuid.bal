@@ -61,3 +61,13 @@ public isolated function newType3AsString(byte[] name) returns string = @java:Me
 public isolated function validate(string uuid) returns boolean {
     return stringutils:matches(uuid, "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}");
 }
+
+# Returns a nil UUID as a string.
+# ```ballerina
+# string nilUUID = uuid:nilAsString();
+# ```
+#
+# + return - nil UUID
+public isolated function nilAsString() returns string {
+    return "00000000-0000-0000-0000-000000000000";
+}

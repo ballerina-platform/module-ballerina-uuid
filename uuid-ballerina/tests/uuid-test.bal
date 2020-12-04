@@ -31,3 +31,8 @@ isolated function testNewType3AsString() {
 isolated function testValidate() {
     test:assertTrue(validate("4397465e-35f9-11eb-adc1-0242ac120002"));
 }
+
+@test:Config {}
+isolated function testNilAsString() {
+    test:assertEquals(nilAsString(), "00000000-0000-0000-0000-000000000000");
+}
