@@ -15,6 +15,7 @@
 // under the License.
 
 import ballerina/java;
+import ballerina/crypto;
 import ballerina/stringutils;
 
 # Represents the UUID versions.
@@ -28,6 +29,21 @@ public enum Version {
     V3,
     V4,
     V5
+}
+
+# Represents UUIDs strings of well known namespace IDs.
+#
+# + NameSpaceDNS- Namespace is a fully-qualified domain name
+# + NameSpaceURL- Namespace is a URL
+# + NameSpaceOID- Namespace is an ISO OID
+# + NameSpaceX500- Namespace is an X.500 DN (in DER or a text output format)
+# + NameSpaceNil- Empty UUID
+public enum NamespaceUUID {
+    NameSpaceDNS = "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+    NameSpaceURL = "6ba7b811-9dad-11d1-80b4-00c04fd430c8",
+    NameSpaceOID = "6ba7b812-9dad-11d1-80b4-00c04fd430c8",
+    NameSpaceX500 = "6ba7b814-9dad-11d1-80b4-00c04fd430c8",
+    NameSpaceNil = "00000000-0000-0000-0000-000000000000"
 }
 
 # Returns a UUID of type 4 as a string.
@@ -62,6 +78,30 @@ public isolated function newType3AsString(byte[] name) returns string = @java:Me
     name: "nameUUIDFromBytes",
     'class: "org.ballerinalang.stdlib.uuid.nativeimpl.Util"
 } external;
+
+# Returns a UUID of type 5 as a string.
+# ```ballerina
+# string uuid5 = uuid:createType5AsString(uuid:NameSpaceDNS, “python.org”);
+# ```
+#
+# + name - name
+# + namespace - namespace
+#
+# + return - UUID of type 5 as a string
+public isolated function createType5AsString(NamespaceUUID namespace, string name) returns string {
+    byte[] namespaceBytes = getBytesFromUUID(namespace);
+    byte[] nameBytes = name.toBytes();
+
+    namespaceBytes.push(...nameBytes);
+
+    byte[] uuid = crypto:hashSha1(namespaceBytes);
+
+    uuid[6] = uuid[6] & 0x0f;
+    uuid[6] = <byte>(uuid[6] | 0x50);
+    uuid[8] = uuid[8] & 0x3f;
+    uuid[8] = <byte>(uuid[8] | 0x80);
+    return getUUIDFromBytes(uuid);
+}
 
 # Test a string to see if it is a valid UUID.
 # ```ballerina
@@ -130,5 +170,15 @@ isolated function uuidObjectFromString(string uuid) returns handle = @java:Metho
 # + return - UUID of type 1 as a string
 public isolated function newType1AsString() returns string = @java:Method {
     name: "generateType1UUID",
+    'class: "org.ballerinalang.stdlib.uuid.nativeimpl.Util"
+} external;
+
+isolated function getBytesFromUUID(string uuid) returns byte[] = @java:Method {
+    name: "getBytesFromUUID",
+    'class: "org.ballerinalang.stdlib.uuid.nativeimpl.Util"
+} external;
+
+isolated function getUUIDFromBytes(byte[] uuid) returns string = @java:Method {
+    name: "getUUIDFromBytes",
     'class: "org.ballerinalang.stdlib.uuid.nativeimpl.Util"
 } external;

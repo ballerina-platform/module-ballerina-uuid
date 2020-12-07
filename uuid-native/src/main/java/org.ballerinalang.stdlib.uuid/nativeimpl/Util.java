@@ -20,9 +20,11 @@ package org.ballerinalang.stdlib.uuid.nativeimpl;
 
 import io.ballerina.runtime.api.creators.ErrorCreator;
 import io.ballerina.runtime.api.values.BArray;
+import io.ballerina.runtime.api.creators.ValueCreator;
 import io.ballerina.runtime.api.values.BString;
 import io.ballerina.runtime.api.utils.StringUtils;
 
+import java.nio.ByteBuffer;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Random;
@@ -71,5 +73,22 @@ public class Util {
         long least12SignificatBitOfTime = (timeForUuidIn100Nanos & 0x000000000000FFFFL) >> 4;
         long version = 1 << 12;
         return (timeForUuidIn100Nanos & 0xFFFFFFFFFFFF0000L) + version + least12SignificatBitOfTime;
+    }
+
+    public static BArray getBytesFromUUID(BString uuid) {
+        UUID uuid1 = UUID.fromString(uuid.toString());
+        ByteBuffer bb = ByteBuffer.wrap(new byte[16]);
+        bb.putLong(uuid1.getMostSignificantBits());
+        bb.putLong(uuid1.getLeastSignificantBits());
+
+        return ValueCreator.createArrayValue(bb.array());
+    }
+
+    public static BString getUUIDFromBytes(BArray bytes) {
+        ByteBuffer byteBuffer = ByteBuffer.wrap(bytes.getBytes());
+        Long high = byteBuffer.getLong();
+        Long low = byteBuffer.getLong();
+
+        return StringUtils.fromString(new UUID(high, low).toString());
     }
 }

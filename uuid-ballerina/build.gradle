@@ -88,9 +88,11 @@ def originalConfig = ballerinaConfigFile.text
 task updateTomlVerions {
     doLast {
         def stdlibDependentStringUtilsVersion = project.stdlibStringUtilsVersion.split("-")[0]
+        def stdlibDependentCryptoVersion = project.stdlibCryptoVersion.split("-")[0]
         def newConfig = ballerinaConfigFile.text.replace("@project.version@", project.version)
         newConfig = newConfig.replace("@toml.version@", tomlVersion)
         newConfig = newConfig.replace("@stdlib.stringutils.version@", stdlibDependentStringUtilsVersion)
+        newConfig = newConfig.replace("@stdlib.crypto.version@", stdlibDependentCryptoVersion)
         ballerinaConfigFile.text = newConfig
     }
 }

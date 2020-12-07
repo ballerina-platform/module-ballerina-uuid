@@ -72,6 +72,22 @@ allprojects {
                 password System.getenv("packagePAT")
             }
         }
+
+        maven {
+            url = 'https://maven.pkg.github.com/ballerina-platform/module-ballerina-crypto'
+            credentials {
+                username System.getenv("packageUser")
+                password System.getenv("packagePAT")
+            }
+        }
+
+        maven {
+            url = 'https://maven.pkg.github.com/ballerina-platform/module-ballerina-time'
+            credentials {
+                username System.getenv("packageUser")
+                password System.getenv("packagePAT")
+            }
+        }
     }
 }
 
@@ -85,6 +101,9 @@ subprojects {
     dependencies {
         /* Standard libraries */
         ballerinaStdLibs "org.ballerinalang:stringutils-ballerina:${project.stdlibStringUtilsVersion}"
+        ballerinaStdLibs "org.ballerinalang:crypto-ballerina:${project.stdlibCryptoVersion}"
+        // Transitive dependencies
+        ballerinaStdLibs "org.ballerinalang:time-ballerina:${project.stdlibTimeVersion}"
     }
 }
 def moduleVersion = project.version

@@ -49,3 +49,8 @@ isolated function testUuidVersion() {
 isolated function testNewType1AsString() {
     test:assertEquals(newType1AsString().length(), 36);
 }
+
+@test:Config {}
+isolated function testCreateType5AsString() {
+    test:assertEquals(createType5AsString(NameSpaceDNS, "python.org"), "886313e1-3b8a-5372-9b90-0c9aee199e5d");
+}
