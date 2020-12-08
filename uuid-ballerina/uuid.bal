@@ -30,6 +30,16 @@ public isolated function createType1AsString() returns string = @java:Method {
     'class: "org.ballerinalang.stdlib.uuid.nativeimpl.Util"
 } external;
 
+# Returns a UUID of type 1 as a UUID record.
+# ```ballerina
+# UUID|error uuid1 = uuid:createType1AsRecord();
+# ```
+#
+# + return - UUID of type 1 as a UUID record or error
+public isolated function createType1AsRecord() returns UUID|error {
+    return check toRecord(createType1AsString());
+}
+
 # Returns a UUID of type 3 as a string.
 # ```ballerina
 # string uuid3 = uuid:createType3AsString(uuid:NameSpaceDNS, “python.org”);
