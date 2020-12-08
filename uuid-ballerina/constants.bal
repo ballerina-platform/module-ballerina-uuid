@@ -16,6 +16,14 @@
 
 import ballerina/lang.'int as ints;
 
+# Represents a UUID.
+#
+# + timeLow - The low field of the timestamp
+# + timeMid - The middle field of the timestamp
+# + timeHiAndVersion - The high field of the timestamp multiplexed with the version number
+# + clockSeqHiAndReserved - The high field of the clock sequence multiplexed with the variant
+# + clockSeqLo - The low field of the clock sequence
+# + node - The spatially unique node identifier
 public type UUID readonly & record {
     ints:Unsigned32 timeLow;
     ints:Unsigned16 timeMid;
