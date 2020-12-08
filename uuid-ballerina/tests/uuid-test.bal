@@ -86,6 +86,19 @@ isolated function testNilAsString() {
 }
 
 @test:Config {}
+isolated function testNilAsRecord() {
+    UUID expcectedUUID = {
+        timeLow: 0,
+        timeMid: 0,
+        timeHiAndVersion: 0,
+        clockSeqHiAndReserved: 0,
+        clockSeqLo: 0,
+        node: 0
+    };
+    test:assertEquals(nilAsRecord(), expcectedUUID);
+}
+
+@test:Config {}
 isolated function testValidate() {
     test:assertTrue(validate("4397465e-35f9-11eb-adc1-0242ac120002"));
 }

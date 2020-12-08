@@ -154,6 +154,24 @@ public isolated function nilAsString() returns string {
     return "00000000-0000-0000-0000-000000000000";
 }
 
+# Returns a nil UUID as a UUID record.
+# ```ballerina
+# UUID nilUUID = uuid:nilAsRecord();
+# ```
+#
+# + return - nil UUID
+public isolated function nilAsRecord() returns UUID {
+    UUID nilUUID = {
+        timeLow: 0,
+        timeMid: 0,
+        timeHiAndVersion: 0,
+        clockSeqHiAndReserved: 0,
+        clockSeqLo: 0,
+        node: 0
+    };
+    return nilUUID;
+}
+
 # Test a string to see if it is a valid UUID.
 # ```ballerina
 # boolean valid = uuid:validate(“6ec0bd7f-11c0-43da-975e-e0b”);
