@@ -231,6 +231,48 @@ isolated function getUUIDFromBytes(byte[] uuid) returns string = @java:Method {
     'class: "org.ballerinalang.stdlib.uuid.nativeimpl.Util"
 } external;
 
+# Convert to an array of bytes. Returns an error if the uuid is invalid.
+# ```ballerina
+# byte[]|error b = uuid:toBytes(“6ec0bd7f-11c0-43da-975e-2aesass0b”);
+# ```
+#
+# + uuid - UUID to be parsed
+#
+# + return - uuid as bytes
+public isolated function toBytes(string|UUID uuid) returns byte[]|error {
+    if (uuid is string) {
+        return getBytesFromUUID(uuid);
+    } else {
+        var uuidString = toString(uuid);
+        if (uuidString is string) {
+            return getBytesFromUUID(uuidString);
+        } else {
+            return error("failed to convert uuid record to a string");
+        }
+    }
+}
+
+# Convert to UUID string. Returns error if the array is invalid.
+# ```ballerina
+# string|error s = uuid:toString([5, 12, 16, 35]);
+# ```
+#
+# + uuid - UUID to be converted
+#
+# + return - uuid as string
+public isolated function toString(byte[]|UUID uuid) returns string|error {
+    if (uuid is byte[]) {
+        return getUUIDFromBytes(uuid);
+    } else {
+        string nodeString = ints:toHexString(uuid.node);
+        return ints:toHexString(uuid.timeLow) + "-" +
+        ints:toHexString(uuid.timeMid) + "-" +
+        ints:toHexString(uuid.timeHiAndVersion) + "-" +
+        ints:toHexString(uuid.clockSeqHiAndReserved) + ints:toHexString(uuid.clockSeqLo) + "-" +
+        getNodeHexString(nodeString);
+    }
+}
+
 # Convert to UUID record. Returns error if the array is invalid.
 # ```ballerina
 # UUID|error r1 = uuid:toRecord("4397465e-35f9-11eb-adc1-0242ac120002");
@@ -239,7 +281,7 @@ isolated function getUUIDFromBytes(byte[] uuid) returns string = @java:Method {
 #
 # + uuid - UUID to be converted
 #
-# + return - corresponding UUID
+# + return - uuid as record
 public isolated function toRecord(string|byte[] uuid) returns UUID|error {
     string[] uuidArray;
     if (uuid is string) {
@@ -265,4 +307,12 @@ public isolated function toRecord(string|byte[] uuid) returns UUID|error {
         node: nodeInt
     };
     return uuidRecord;
+}
+
+isolated function getNodeHexString(string node) returns string {
+    string nodeHexString = "";
+    foreach var i in 0 ..< (12 - node.length()) {
+        nodeHexString += "0";
+    }
+    return nodeHexString + node;
 }
