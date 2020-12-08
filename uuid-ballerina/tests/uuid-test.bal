@@ -64,6 +64,23 @@ isolated function testCreateType5AsString() {
 }
 
 @test:Config {}
+isolated function testCreateType5AsRecord() {
+    UUID expcectedUUID = {
+        timeLow: 2288194529,
+        timeMid: 15242,
+        timeHiAndVersion: 21362,
+        clockSeqHiAndReserved: 155,
+        clockSeqLo: 144,
+        node: 13859559153245
+    };
+    UUID|error actualUUID = createType5AsRecord(NameSpaceDNS, "python.org");
+    test:assertTrue(actualUUID is UUID);
+    if (actualUUID is UUID) {
+        test:assertEquals(actualUUID, expcectedUUID);
+    }
+}
+
+@test:Config {}
 isolated function testNilAsString() {
     test:assertEquals(nilAsString(), "00000000-0000-0000-0000-000000000000");
 }

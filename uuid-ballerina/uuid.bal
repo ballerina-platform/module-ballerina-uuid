@@ -131,6 +131,19 @@ public isolated function createType5AsString(NamespaceUUID namespace, string nam
     return getUUIDFromBytes(uuid);
 }
 
+# Returns a UUID of type 5 as a UUID record.
+# ```ballerina
+# UUID|error uuid5 = uuid:createType5AsRecord(uuid:NameSpaceDNS, “python.org”);
+# ```
+#
+# + name - name
+# + namespace - namespace
+#
+# + return - UUID of type 5 as a UUID record or error
+public isolated function createType5AsRecord(NamespaceUUID namespace, string name) returns UUID|error {
+    return check toRecord(createType5AsString(namespace, name));
+}
+
 # Returns a nil UUID as a string.
 # ```ballerina
 # string nilUUID = uuid:nilAsString();
