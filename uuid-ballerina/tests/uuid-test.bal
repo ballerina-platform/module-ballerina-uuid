@@ -54,6 +54,11 @@ isolated function testCreateType4AsString() {
 }
 
 @test:Config {}
+isolated function testCreateType4AsRecord() {
+    test:assertTrue(createType4AsRecord() is UUID);
+}
+
+@test:Config {}
 isolated function testCreateType5AsString() {
     test:assertEquals(createType5AsString(NameSpaceDNS, "python.org"), "886313e1-3b8a-5372-9b90-0c9aee199e5d");
 }

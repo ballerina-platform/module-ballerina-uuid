@@ -92,6 +92,16 @@ public isolated function createType4AsString() returns string {
     }
 }
 
+# Returns a UUID of type 4 as a UUID record.
+# ```ballerina
+# UUID|error uuid4 = uuid:createType4AsRecord();
+# ```
+#
+# + return - UUID of type 4 as a UUID record or error
+public isolated function createType4AsRecord() returns UUID|error {
+    return check toRecord(createType4AsString());
+}
+
 isolated function newType4AsStringExtern() returns handle = @java:Method {
     name: "randomUUID",
     'class: "java.util.UUID"
