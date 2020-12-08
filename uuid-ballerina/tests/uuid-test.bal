@@ -17,19 +17,23 @@
 import ballerina/test;
 
 @test:Config {}
-isolated function testNewType4AsString() {
-    test:assertEquals(newType4AsString().length(), 36);
+isolated function testCreateType1AsString() {
+    test:assertEquals(createType1AsString().length(), 36);
 }
 
 @test:Config {}
-isolated function testNewType3AsString() {
-    byte[] nbyte = [10, 20, 30];
-    test:assertEquals(newType3AsString(nbyte).length(), 36);
+isolated function testCreateType3AsString() {
+    test:assertEquals(createType3AsString(NameSpaceDNS, "python.org"), "6fa459ea-ee8a-3ca4-894e-db77e160355e");
 }
 
 @test:Config {}
-isolated function testValidate() {
-    test:assertTrue(validate("4397465e-35f9-11eb-adc1-0242ac120002"));
+isolated function testCreateType4AsString() {
+    test:assertEquals(createType4AsString().length(), 36);
+}
+
+@test:Config {}
+isolated function testCreateType5AsString() {
+    test:assertEquals(createType5AsString(NameSpaceDNS, "python.org"), "886313e1-3b8a-5372-9b90-0c9aee199e5d");
 }
 
 @test:Config {}
@@ -38,19 +42,14 @@ isolated function testNilAsString() {
 }
 
 @test:Config {}
+isolated function testValidate() {
+    test:assertTrue(validate("4397465e-35f9-11eb-adc1-0242ac120002"));
+}
+
+@test:Config {}
 isolated function testUuidVersion() {
     test:assertEquals(uuidVersion("4397465e-35f9-11eb-adc1-0242ac120002"), V1);
-    test:assertEquals(uuidVersion("a3bb189e-8bf9-3888-9912-ace4e6543002"), V3);
+    test:assertEquals(uuidVersion("6fa459ea-ee8a-3ca4-894e-db77e160355e"), V3);
     test:assertEquals(uuidVersion("66a9f41f-4066-46d1-a838-51952fe64ff3"), V4);
-    test:assertEquals(uuidVersion("a6edc906-2f9f-5fb2-a373-efac406f0ef2"), V5);
-}
-
-@test:Config {}
-isolated function testNewType1AsString() {
-    test:assertEquals(newType1AsString().length(), 36);
-}
-
-@test:Config {}
-isolated function testCreateType5AsString() {
-    test:assertEquals(createType5AsString(NameSpaceDNS, "python.org"), "886313e1-3b8a-5372-9b90-0c9aee199e5d");
+    test:assertEquals(uuidVersion("886313e1-3b8a-5372-9b90-0c9aee199e5d"), V5);
 }

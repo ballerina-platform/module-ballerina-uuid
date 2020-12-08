@@ -32,15 +32,6 @@ import java.util.UUID;
 
 public class Util {
 
-    public static BString nameUUIDFromBytes(BArray name) {
-        try {
-            return StringUtils.fromString(UUID.nameUUIDFromBytes(name.getBytes()).toString());
-        } catch (Exception e) {
-            // Todo: update the error message
-            throw ErrorCreator.createError(StringUtils.fromString("failed to generate uuid"));
-        }
-    }
-
     public static Object fromString(BString uuid) {
         try {
             return UUID.fromString(uuid.toString());
