@@ -16,6 +16,7 @@
 
 import ballerina/java;
 import ballerina/crypto;
+import ballerina/lang.'int as ints;
 import ballerina/stringutils;
 
 # Returns a UUID of type 1 as a string.
@@ -165,3 +166,39 @@ isolated function getUUIDFromBytes(byte[] uuid) returns string = @java:Method {
     name: "getUUIDFromBytes",
     'class: "org.ballerinalang.stdlib.uuid.nativeimpl.Util"
 } external;
+
+# Convert to UUID record. Returns error if the array is invalid.
+# ```ballerina
+# UUID|error r1 = uuid:toRecord("4397465e-35f9-11eb-adc1-0242ac120002");
+# UUID|error r2 = uuid:toRecord([10, 20, 30]);
+# ```
+#
+# + uuid - UUID to be converted
+#
+# + return - corresponding UUID
+public isolated function toRecord(string|byte[] uuid) returns UUID|error {
+    string[] uuidArray;
+    if (uuid is string) {
+        if (!validate(uuid)) {
+            return error("invalid uuid");
+        }
+        uuidArray = stringutils:split(uuid, "-");
+    } else {
+        uuidArray = stringutils:split(getUUIDFromBytes(uuid), "-");
+    }
+    int timeLowInt = check ints:fromHexString(uuidArray[0]);
+    int timeMidInt = check ints:fromHexString(uuidArray[1]);
+    int timeHiAndVersionInt = check ints:fromHexString(uuidArray[2]);
+    int clockSeqHiAndReservedInt = check ints:fromHexString(uuidArray[3].substring(0, 2));
+    int clockSeqLoInt = check ints:fromHexString(uuidArray[3].substring(2, 4));
+    int nodeInt = check ints:fromHexString(uuidArray[4]);
+    UUID uuidRecord = {
+        timeLow: <ints:Unsigned32>timeLowInt,
+        timeMid: <ints:Unsigned16>timeMidInt,
+        timeHiAndVersion: <ints:Unsigned16>timeHiAndVersionInt,
+        clockSeqHiAndReserved: <ints:Unsigned8>clockSeqHiAndReservedInt,
+        clockSeqLo: <ints:Unsigned8>clockSeqLoInt,
+        node: nodeInt
+    };
+    return uuidRecord;
+}

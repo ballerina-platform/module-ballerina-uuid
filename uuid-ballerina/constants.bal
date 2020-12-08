@@ -14,6 +14,17 @@
 // specific language governing permissions and limitations
 // under the License.
 
+import ballerina/lang.'int as ints;
+
+public type UUID readonly & record {
+    ints:Unsigned32 timeLow;
+    ints:Unsigned16 timeMid;
+    ints:Unsigned16 timeHiAndVersion;
+    ints:Unsigned8 clockSeqHiAndReserved;
+    ints:Unsigned8 clockSeqLo;
+    int node;    // Should be Unsigned48, but not available in lang.int at the moment
+};
+
 # Represents the UUID versions.
 #
 # + V1- UUID generated using the MAC address of the computer and the time of generation

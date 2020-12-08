@@ -53,3 +53,16 @@ isolated function testUuidVersion() {
     test:assertEquals(uuidVersion("66a9f41f-4066-46d1-a838-51952fe64ff3"), V4);
     test:assertEquals(uuidVersion("886313e1-3b8a-5372-9b90-0c9aee199e5d"), V5);
 }
+
+@test:Config {}
+isolated function testToRecord() {
+    UUID expcectedUUID = {
+        timeLow: 1133987422,
+        timeMid: 13817,
+        timeHiAndVersion: 4587,
+        clockSeqHiAndReserved: 173,
+        clockSeqLo: 193,
+        node: 2485377957890
+    };
+    test:assertEquals(toRecord("4397465e-35f9-11eb-adc1-0242ac120002"), expcectedUUID);
+}
