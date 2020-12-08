@@ -32,6 +32,23 @@ isolated function testCreateType3AsString() {
 }
 
 @test:Config {}
+isolated function testCreateType3AsRecord() {
+    UUID expcectedUUID = {
+        timeLow: 1873041898,
+        timeMid: 61066,
+        timeHiAndVersion: 15524,
+        clockSeqHiAndReserved: 137,
+        clockSeqLo: 78,
+        node: 241307928769886
+    };
+    UUID|error actualUUID = createType3AsRecord(NameSpaceDNS, "python.org");
+    test:assertTrue(actualUUID is UUID);
+    if (actualUUID is UUID) {
+        test:assertEquals(actualUUID, expcectedUUID);
+    }
+}
+
+@test:Config {}
 isolated function testCreateType4AsString() {
     test:assertEquals(createType4AsString().length(), 36);
 }

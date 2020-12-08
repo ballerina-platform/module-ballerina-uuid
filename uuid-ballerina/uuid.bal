@@ -64,6 +64,19 @@ public isolated function createType3AsString(NamespaceUUID namespace, string nam
     return getUUIDFromBytes(uuid);
 }
 
+# Returns a UUID of type 3 as a UUID record.
+# ```ballerina
+# UUID|error uuid3 = uuid:createType3AsRecord(uuid:NameSpaceDNS, “python.org”);
+# ```
+#
+# + name - name
+# + namespace - namespace
+#
+# + return - UUID of type 3 as a UUID record or error
+public isolated function createType3AsRecord(NamespaceUUID namespace, string name) returns UUID|error {
+    return check toRecord(createType3AsString(namespace, name));
+}
+
 # Returns a UUID of type 4 as a string.
 # ```ballerina
 # string uuid4 = uuid:createType4AsString();
