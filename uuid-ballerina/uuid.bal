@@ -84,12 +84,7 @@ public isolated function createType3AsRecord(NamespaceUUID namespace, string nam
 #
 # + return - UUID of type 4 as a string
 public isolated function createType4AsString() returns string {
-    var result = java:toString(newType4AsStringExtern());
-    if (result is string) {
-        return result;
-    } else {
-        panic error("Error occured when converting the UUID to string.");
-    }
+    return java:toString(newType4AsStringExtern()).toString();
 }
 
 # Returns a UUID of type 4 as a UUID record.
@@ -101,11 +96,6 @@ public isolated function createType4AsString() returns string {
 public isolated function createType4AsRecord() returns UUID|error {
     return check toRecord(createType4AsString());
 }
-
-isolated function newType4AsStringExtern() returns handle = @java:Method {
-    name: "randomUUID",
-    'class: "java.util.UUID"
-} external;
 
 # Returns a UUID of type 5 as a string.
 # ```ballerina
@@ -186,7 +176,7 @@ public isolated function validate(string uuid) returns boolean {
 
 # Detect RFC version of a UUID. Returns an error if the uuid is invalid.
 # ```ballerina
-# uuid:UUIDVersion|error v = uuid:uuidVersion(“6ed7f-11c0-43da-975e-2b”);
+# uuid:Version|error v = uuid:uuidVersion(“6ed7f-11c0-43da-975e-2b”);
 # ```
 #
 # + uuid - UUID
@@ -206,37 +196,17 @@ public isolated function uuidVersion(string uuid) returns Version|error {
         if (!validate(uuid)) {
             return error("invalid uuid");
         } else {
-            return error("unsupported uuid type");
+            return error("unsupported uuid version");
         }
     }
 }
-
-isolated function uuidVersionExtern(handle uuid) returns int = @java:Method {
-    name: "version",
-    'class: "java.util.UUID"
-} external;
-
-isolated function uuidObjectFromString(string uuid) returns handle = @java:Method {
-    name: "fromString",
-    'class: "org.ballerinalang.stdlib.uuid.nativeimpl.Util"
-} external;
-
-isolated function getBytesFromUUID(string uuid) returns byte[] = @java:Method {
-    name: "getBytesFromUUID",
-    'class: "org.ballerinalang.stdlib.uuid.nativeimpl.Util"
-} external;
-
-isolated function getUUIDFromBytes(byte[] uuid) returns string = @java:Method {
-    name: "getUUIDFromBytes",
-    'class: "org.ballerinalang.stdlib.uuid.nativeimpl.Util"
-} external;
 
 # Convert to an array of bytes. Returns an error if the uuid is invalid.
 # ```ballerina
 # byte[]|error b = uuid:toBytes(“6ec0bd7f-11c0-43da-975e-2aesass0b”);
 # ```
 #
-# + uuid - UUID to be parsed
+# + uuid - UUID to be converted
 #
 # + return - uuid as bytes
 public isolated function toBytes(string|UUID uuid) returns byte[]|error {
@@ -298,6 +268,7 @@ public isolated function toRecord(string|byte[] uuid) returns UUID|error {
     int clockSeqHiAndReservedInt = check ints:fromHexString(uuidArray[3].substring(0, 2));
     int clockSeqLoInt = check ints:fromHexString(uuidArray[3].substring(2, 4));
     int nodeInt = check ints:fromHexString(uuidArray[4]);
+
     UUID uuidRecord = {
         timeLow: <ints:Unsigned32>timeLowInt,
         timeMid: <ints:Unsigned16>timeMidInt,
@@ -307,12 +278,4 @@ public isolated function toRecord(string|byte[] uuid) returns UUID|error {
         node: nodeInt
     };
     return uuidRecord;
-}
-
-isolated function getNodeHexString(string node) returns string {
-    string nodeHexString = "";
-    foreach var i in 0 ..< (12 - node.length()) {
-        nodeHexString += "0";
-    }
-    return nodeHexString + node;
 }

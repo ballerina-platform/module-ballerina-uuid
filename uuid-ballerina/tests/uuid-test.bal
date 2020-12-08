@@ -101,6 +101,7 @@ isolated function testNilAsRecord() {
 @test:Config {}
 isolated function testValidate() {
     test:assertTrue(validate("4397465e-35f9-11eb-adc1-0242ac120002"));
+    test:assertFalse(validate("invalid-uuid-string"));
 }
 
 @test:Config {}
@@ -112,13 +113,26 @@ isolated function testUuidVersion() {
 }
 
 @test:Config {}
-isolated function testToBytes() {
+isolated function testStringToBytes() {
     test:assertEquals(toBytes("4397465e-35f9-11eb-adc1-0242ac120002"),
     [67,151,70,94,53,249,17,235,173,193,2,66,172,18,0,2]);
 }
 
 @test:Config {}
-isolated function testToString() {
+isolated function testRecordToBytes() {
+    UUID uuid = {
+        timeLow: 1133987422,
+        timeMid: 13817,
+        timeHiAndVersion: 4587,
+        clockSeqHiAndReserved: 173,
+        clockSeqLo: 193,
+        node: 2485377957890
+    };
+    test:assertEquals(toBytes(uuid), [67,151,70,94,53,249,17,235,173,193,2,66,172,18,0,2]);
+}
+
+@test:Config {}
+isolated function testRecordToString() {
     UUID uuid = {
         timeLow: 1133987422,
         timeMid: 13817,
@@ -131,7 +145,13 @@ isolated function testToString() {
 }
 
 @test:Config {}
-isolated function testToRecord() {
+isolated function testBytesToString() {
+    test:assertEquals(toString([67,151,70,94,53,249,17,235,173,193,2,66,172,18,0,2]),
+    "4397465e-35f9-11eb-adc1-0242ac120002");
+}
+
+@test:Config {}
+isolated function testStringToRecord() {
     UUID expcectedUUID = {
         timeLow: 1133987422,
         timeMid: 13817,
@@ -141,4 +161,17 @@ isolated function testToRecord() {
         node: 2485377957890
     };
     test:assertEquals(toRecord("4397465e-35f9-11eb-adc1-0242ac120002"), expcectedUUID);
+}
+
+@test:Config {}
+isolated function testBytesToRecord() {
+    UUID expcectedUUID = {
+        timeLow: 1133987422,
+        timeMid: 13817,
+        timeHiAndVersion: 4587,
+        clockSeqHiAndReserved: 173,
+        clockSeqLo: 193,
+        node: 2485377957890
+    };
+    test:assertEquals(toRecord([67,151,70,94,53,249,17,235,173,193,2,66,172,18,0,2]), expcectedUUID);
 }

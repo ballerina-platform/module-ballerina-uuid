@@ -36,8 +36,7 @@ public class Util {
         try {
             return UUID.fromString(uuid.toString());
         } catch (Exception e) {
-            // Todo: update the error message
-            throw ErrorCreator.createError(StringUtils.fromString("failed to generate uuid"));
+            throw ErrorCreator.createError(StringUtils.fromString(e.getMessage()));
         }
     }
 
@@ -61,9 +60,9 @@ public class Util {
         long seconds = duration.getSeconds();
         long nanos = duration.getNano();
         long timeForUuidIn100Nanos = seconds * 10000000 + nanos * 100;
-        long least12SignificatBitOfTime = (timeForUuidIn100Nanos & 0x000000000000FFFFL) >> 4;
+        long least12SignificantBitOfTime = (timeForUuidIn100Nanos & 0x000000000000FFFFL) >> 4;
         long version = 1 << 12;
-        return (timeForUuidIn100Nanos & 0xFFFFFFFFFFFF0000L) + version + least12SignificatBitOfTime;
+        return (timeForUuidIn100Nanos & 0xFFFFFFFFFFFF0000L) + version + least12SignificantBitOfTime;
     }
 
     public static BArray getBytesFromUUID(BString uuid) {
