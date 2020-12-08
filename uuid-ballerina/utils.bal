@@ -26,9 +26,9 @@ isolated function uuidVersionExtern(handle uuid) returns int = @java:Method {
     'class: "java.util.UUID"
 } external;
 
-isolated function uuidObjectFromString(string uuid) returns handle = @java:Method {
+isolated function uuidObjectFromString(handle uuid) returns handle = @java:Method {
     name: "fromString",
-    'class: "org.ballerinalang.stdlib.uuid.nativeimpl.Util"
+    'class: "java.util.UUID"
 } external;
 
 isolated function getBytesFromUUID(string uuid) returns byte[] = @java:Method {

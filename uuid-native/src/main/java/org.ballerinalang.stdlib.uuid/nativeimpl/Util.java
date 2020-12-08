@@ -18,7 +18,6 @@
 
 package org.ballerinalang.stdlib.uuid.nativeimpl;
 
-import io.ballerina.runtime.api.creators.ErrorCreator;
 import io.ballerina.runtime.api.values.BArray;
 import io.ballerina.runtime.api.creators.ValueCreator;
 import io.ballerina.runtime.api.values.BString;
@@ -31,14 +30,6 @@ import java.util.Random;
 import java.util.UUID;
 
 public class Util {
-
-    public static Object fromString(BString uuid) {
-        try {
-            return UUID.fromString(uuid.toString());
-        } catch (Exception e) {
-            throw ErrorCreator.createError(StringUtils.fromString(e.getMessage()));
-        }
-    }
 
     public static BString generateType1UUID() {
         long most64SigBits = get64MostSignificantBitsForVersion1();
@@ -76,8 +67,8 @@ public class Util {
 
     public static BString getUUIDFromBytes(BArray bytes) {
         ByteBuffer byteBuffer = ByteBuffer.wrap(bytes.getBytes());
-        Long high = byteBuffer.getLong();
-        Long low = byteBuffer.getLong();
+        long high = byteBuffer.getLong();
+        long low = byteBuffer.getLong();
 
         return StringUtils.fromString(new UUID(high, low).toString());
     }

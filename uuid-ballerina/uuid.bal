@@ -183,7 +183,7 @@ public isolated function validate(string uuid) returns boolean {
 #
 # + return - uuid version, or error
 public isolated function uuidVersion(string uuid) returns Version|error {
-    int v = uuidVersionExtern(uuidObjectFromString(uuid));
+    int v = uuidVersionExtern(uuidObjectFromString(java:fromString(uuid)));
     if (v == 1) {
         return V1;
     } else if (v == 3) {
