@@ -234,12 +234,12 @@ public isolated function toString(byte[]|UUID uuid) returns string|error {
     if (uuid is byte[]) {
         return getUUIDFromBytes(uuid);
     } else {
-        string nodeString = ints:toHexString(uuid.node);
-        return ints:toHexString(uuid.timeLow) + "-" +
-        ints:toHexString(uuid.timeMid) + "-" +
-        ints:toHexString(uuid.timeHiAndVersion) + "-" +
-        ints:toHexString(uuid.clockSeqHiAndReserved) + ints:toHexString(uuid.clockSeqLo) + "-" +
-        getNodeHexString(nodeString);
+        return getHexString(ints:toHexString(uuid.timeLow), 8) + "-" +
+        getHexString(ints:toHexString(uuid.timeMid), 2) + "-" +
+        getHexString(ints:toHexString(uuid.timeHiAndVersion), 2) + "-" +
+        getHexString(ints:toHexString(uuid.clockSeqHiAndReserved), 1) +
+        getHexString(ints:toHexString(uuid.clockSeqLo), 1) + "-" +
+        getHexString(ints:toHexString(uuid.node), 12);
     }
 }
 

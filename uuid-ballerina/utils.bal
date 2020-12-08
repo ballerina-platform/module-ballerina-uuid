@@ -41,10 +41,10 @@ isolated function getUUIDFromBytes(byte[] uuid) returns string = @java:Method {
     'class: "org.ballerinalang.stdlib.uuid.nativeimpl.Util"
 } external;
 
-isolated function getNodeHexString(string node) returns string {
-    string nodeHexString = "";
-    foreach var i in 0 ..< (12 - node.length()) {
-        nodeHexString += "0";
+isolated function getHexString(string hex, int length) returns string {
+    string hexString = "";
+    foreach var i in 0 ..< (length - hex.length()) {
+        hexString += "0";
     }
-    return nodeHexString + node;
+    return hexString + hex;
 }
