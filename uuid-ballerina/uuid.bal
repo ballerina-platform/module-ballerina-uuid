@@ -32,49 +32,57 @@ public isolated function createType1AsString() returns string = @java:Method {
 
 # Returns a UUID of type 1 as a UUID record.
 # ```ballerina
-# UUID|error uuid1 = uuid:createType1AsRecord();
+# uuid:Uuid|uuid:Error uuid1 = uuid:createType1AsRecord();
 # ```
 #
 # + return - UUID of type 1 as a UUID record or error
-public isolated function createType1AsRecord() returns UUID|error {
+public isolated function createType1AsRecord() returns Uuid|Error {
     return check toRecord(createType1AsString());
 }
 
 # Returns a UUID of type 3 as a string.
 # ```ballerina
-# string uuid3 = uuid:createType3AsString(uuid:NameSpaceDNS, “python.org”);
+# string|uuid:Error uuid3 = uuid:createType3AsString(uuid:NAME_SPACE_DNS, “ballerina.io”);
 # ```
 #
-# + name - name
-# + namespace - namespace
+# + namespace - string representation for pre-defined namespace UUIDs
+# + name - a name within the namespace
 #
 # + return - UUID of type 3 as a string
-public isolated function createType3AsString(NamespaceUUID namespace, string name) returns string {
+public isolated function createType3AsString(NamespaceUUID namespace, string name) returns string|Error {
+    string trimmedName = name.trim();
+    if (trimmedName.length() == 0) {
+        return UuidError("Name cannot be empty");
+    }
     byte[] namespaceBytes = getBytesFromUUID(namespace);
-    byte[] nameBytes = name.toBytes();
-
+    byte[] nameBytes = trimmedName.toBytes();
     namespaceBytes.push(...nameBytes);
 
-    byte[] uuid = crypto:hashMd5(namespaceBytes);
+    byte[] uuid3 = crypto:hashMd5(namespaceBytes);
 
-    uuid[6] = uuid[6] & 0x0f;
-    uuid[6] = <byte>(uuid[6] | 0x30);
-    uuid[8] = uuid[8] & 0x3f;
-    uuid[8] = <byte>(uuid[8] | 0x80);
-    return getUUIDFromBytes(uuid);
+    uuid3[6] = uuid3[6] & 0x0f;
+    uuid3[6] = <byte>(uuid3[6] | 0x30);
+    uuid3[8] = uuid3[8] & 0x3f;
+    uuid3[8] = <byte>(uuid3[8] | 0x80);
+    return getUUIDFromBytes(uuid3);
 }
 
 # Returns a UUID of type 3 as a UUID record.
 # ```ballerina
-# UUID|error uuid3 = uuid:createType3AsRecord(uuid:NameSpaceDNS, “python.org”);
+# uuid:Uuid|uuid:Error uuid3 = uuid:createType3AsRecord(uuid:NAME_SPACE_DNS, “ballerina.io”);
 # ```
 #
-# + name - name
-# + namespace - namespace
+# + namespace - string representation for pre-defined namespace UUIDs
+# + name - a name within the namespace
 #
 # + return - UUID of type 3 as a UUID record or error
-public isolated function createType3AsRecord(NamespaceUUID namespace, string name) returns UUID|error {
-    return check toRecord(createType3AsString(namespace, name));
+public isolated function createType3AsRecord(NamespaceUUID namespace, string name) returns Uuid|Error {
+    string|Error uuid3 = createType3AsString(namespace, name);
+    if (uuid3 is string) {
+        return check toRecord(uuid3);
+    } else {
+        return UuidError("Failed to create UUID of type 3", uuid3);
+    }
 }
 
 # Returns a UUID of type 4 as a string.
@@ -84,54 +92,62 @@ public isolated function createType3AsRecord(NamespaceUUID namespace, string nam
 #
 # + return - UUID of type 4 as a string
 public isolated function createType4AsString() returns string {
-    return java:toString(newType4AsStringExtern()).toString();
+    return java:toString(getRandomUUID()).toString();
 }
 
 # Returns a UUID of type 4 as a UUID record.
 # ```ballerina
-# UUID|error uuid4 = uuid:createType4AsRecord();
+# uuid:Uuid|uuid:Error uuid4 = uuid:createType4AsRecord();
 # ```
 #
 # + return - UUID of type 4 as a UUID record or error
-public isolated function createType4AsRecord() returns UUID|error {
+public isolated function createType4AsRecord() returns Uuid|Error {
     return check toRecord(createType4AsString());
 }
 
 # Returns a UUID of type 5 as a string.
 # ```ballerina
-# string uuid5 = uuid:createType5AsString(uuid:NameSpaceDNS, “python.org”);
+# string|uuid:Error uuid5 = uuid:createType5AsString(uuid:NAME_SPACE_DNS, “ballerina.io”);
 # ```
 #
-# + name - name
-# + namespace - namespace
+# + namespace - string representation for pre-defined namespace UUIDs
+# + name - a name within the namespace
 #
 # + return - UUID of type 5 as a string
-public isolated function createType5AsString(NamespaceUUID namespace, string name) returns string {
+public isolated function createType5AsString(NamespaceUUID namespace, string name) returns string|Error {
+    string trimmedName = name.trim();
+    if (trimmedName.length() == 0) {
+        return UuidError("Name cannot be empty");
+    }
     byte[] namespaceBytes = getBytesFromUUID(namespace);
-    byte[] nameBytes = name.toBytes();
-
+    byte[] nameBytes = trimmedName.toBytes();
     namespaceBytes.push(...nameBytes);
 
-    byte[] uuid = crypto:hashSha1(namespaceBytes);
+    byte[] uuid5 = crypto:hashSha1(namespaceBytes);
 
-    uuid[6] = uuid[6] & 0x0f;
-    uuid[6] = <byte>(uuid[6] | 0x50);
-    uuid[8] = uuid[8] & 0x3f;
-    uuid[8] = <byte>(uuid[8] | 0x80);
-    return getUUIDFromBytes(uuid);
+    uuid5[6] = uuid5[6] & 0x0f;
+    uuid5[6] = <byte>(uuid5[6] | 0x50);
+    uuid5[8] = uuid5[8] & 0x3f;
+    uuid5[8] = <byte>(uuid5[8] | 0x80);
+    return getUUIDFromBytes(uuid5);
 }
 
 # Returns a UUID of type 5 as a UUID record.
 # ```ballerina
-# UUID|error uuid5 = uuid:createType5AsRecord(uuid:NameSpaceDNS, “python.org”);
+# uuid:Uuid|uuid:Error uuid5 = uuid:createType5AsRecord(uuid:NAME_SPACE_DNS, “ballerina.io”);
 # ```
 #
-# + name - name
-# + namespace - namespace
+# + namespace - string representation for pre-defined namespace UUIDs
+# + name - a name within the namespace
 #
 # + return - UUID of type 5 as a UUID record or error
-public isolated function createType5AsRecord(NamespaceUUID namespace, string name) returns UUID|error {
-    return check toRecord(createType5AsString(namespace, name));
+public isolated function createType5AsRecord(NamespaceUUID namespace, string name) returns Uuid|Error {
+    string|Error uuid5 = createType5AsString(namespace, name);
+    if (uuid5 is string) {
+        return check toRecord(uuid5);
+    } else {
+        return UuidError("Failed to create UUID of type 3", uuid5);
+    }
 }
 
 # Returns a nil UUID as a string.
@@ -141,17 +157,17 @@ public isolated function createType5AsRecord(NamespaceUUID namespace, string nam
 #
 # + return - nil UUID
 public isolated function nilAsString() returns string {
-    return "00000000-0000-0000-0000-000000000000";
+    return NIL_UUID;
 }
 
 # Returns a nil UUID as a UUID record.
 # ```ballerina
-# UUID nilUUID = uuid:nilAsRecord();
+# uuid:Uuid nilUUID = uuid:nilAsRecord();
 # ```
 #
 # + return - nil UUID
-public isolated function nilAsRecord() returns UUID {
-    UUID nilUUID = {
+public isolated function nilAsRecord() returns Uuid {
+    Uuid nilUuid = {
         timeLow: 0,
         timeMid: 0,
         timeHiAndVersion: 0,
@@ -159,12 +175,12 @@ public isolated function nilAsRecord() returns UUID {
         clockSeqLo: 0,
         node: 0
     };
-    return nilUUID;
+    return nilUuid;
 }
 
 # Test a string to see if it is a valid UUID.
 # ```ballerina
-# boolean valid = uuid:validate(“6ec0bd7f-11c0-43da-975e-e0b”);
+# boolean valid = uuid:validate("4397465e-35f9-11eb-adc1-0242ac120002");
 # ```
 #
 # + uuid - UUID to be tested
@@ -174,42 +190,47 @@ public isolated function validate(string uuid) returns boolean {
     return stringutils:matches(uuid, "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}");
 }
 
-# Detect RFC version of a UUID. Returns an error if the uuid is invalid.
+# Detect RFC version of a UUID. Returns an error if the UUID is invalid.
 # ```ballerina
-# uuid:Version|error v = uuid:uuidVersion(“6ed7f-11c0-43da-975e-2b”);
+# uuid:Version|uuid:Error v = uuid:getVersion("4397465e-35f9-11eb-adc1-0242ac120002");
 # ```
 #
 # + uuid - UUID
 #
-# + return - uuid version, or error
-public isolated function uuidVersion(string uuid) returns Version|error {
-    int v = uuidVersionExtern(uuidObjectFromString(java:fromString(uuid)));
-    if (v == 1) {
-        return V1;
-    } else if (v == 3) {
-        return V3;
-    } else if (v == 4) {
-        return V4;
-    } else if (v == 5) {
-        return V5;
-    } else {
-        if (!validate(uuid)) {
-            return error("invalid uuid");
-        } else {
-            return error("unsupported uuid version");
+# + return - UUID version, or error
+public isolated function getVersion(string uuid) returns Version|Error {
+    if (!validate(uuid)) {
+        return UuidError("Invalid UUID string provided");
+    }
+    int v = getUUIDVersion(uuid);
+    match v {
+        1 => {
+            return V1;
+        }
+        3 => {
+            return V3;
+        }
+        4 => {
+            return V4;
+        }
+        5 => {
+            return V5;
+        }
+        _ => {
+            return UuidError("Unsupported UUID version");
         }
     }
 }
 
-# Convert to an array of bytes. Returns an error if the uuid is invalid.
+# Convert to an array of bytes. Returns an error if the UUID is invalid.
 # ```ballerina
-# byte[]|error b = uuid:toBytes(“6ec0bd7f-11c0-43da-975e-2aesass0b”);
+# byte[]|uuid:Error b = uuid:toBytes(“6ec0bd7f-11c0-43da-975e-2aesass0b”);
 # ```
 #
 # + uuid - UUID to be converted
 #
-# + return - uuid as bytes
-public isolated function toBytes(string|UUID uuid) returns byte[]|error {
+# + return - UUID as bytes
+public isolated function toBytes(string|Uuid uuid) returns byte[]|Error {
     if (uuid is string) {
         return getBytesFromUUID(uuid);
     } else {
@@ -217,7 +238,7 @@ public isolated function toBytes(string|UUID uuid) returns byte[]|error {
         if (uuidString is string) {
             return getBytesFromUUID(uuidString);
         } else {
-            return error("failed to convert uuid record to a string");
+            return UuidError("Failed to convert UUID record to a string", uuidString);
         }
     }
 }
@@ -229,52 +250,90 @@ public isolated function toBytes(string|UUID uuid) returns byte[]|error {
 #
 # + uuid - UUID to be converted
 #
-# + return - uuid as string
-public isolated function toString(byte[]|UUID uuid) returns string|error {
+# + return - UUID as string
+public isolated function toString(byte[]|Uuid uuid) returns string|error {
     if (uuid is byte[]) {
         return getUUIDFromBytes(uuid);
     } else {
-        return getHexString(ints:toHexString(uuid.timeLow), 8) + "-" +
-        getHexString(ints:toHexString(uuid.timeMid), 2) + "-" +
-        getHexString(ints:toHexString(uuid.timeHiAndVersion), 2) + "-" +
-        getHexString(ints:toHexString(uuid.clockSeqHiAndReserved), 1) +
-        getHexString(ints:toHexString(uuid.clockSeqLo), 1) + "-" +
-        getHexString(ints:toHexString(uuid.node), 12);
+        return constructComponent(ints:toHexString(uuid.timeLow), 8) + "-" +
+        constructComponent(ints:toHexString(uuid.timeMid), 2) + "-" +
+        constructComponent(ints:toHexString(uuid.timeHiAndVersion), 2) + "-" +
+        constructComponent(ints:toHexString(uuid.clockSeqHiAndReserved), 1) +
+        constructComponent(ints:toHexString(uuid.clockSeqLo), 1) + "-" +
+        constructComponent(ints:toHexString(uuid.node), 12);
     }
 }
 
 # Convert to UUID record. Returns error if the array is invalid.
 # ```ballerina
-# UUID|error r1 = uuid:toRecord("4397465e-35f9-11eb-adc1-0242ac120002");
-# UUID|error r2 = uuid:toRecord([10, 20, 30]);
+# uuid:Uuid|uuid:Error r1 = uuid:toRecord("4397465e-35f9-11eb-adc1-0242ac120002");
+# uuid:Uuid|uuid:Error r2 = uuid:toRecord([10, 20, 30]);
 # ```
 #
 # + uuid - UUID to be converted
 #
-# + return - uuid as record
-public isolated function toRecord(string|byte[] uuid) returns UUID|error {
+# + return - UUID as record
+public isolated function toRecord(string|byte[] uuid) returns Uuid|Error {
+    ints:Unsigned32 timeLowInt;
+    ints:Unsigned16 timeMidInt;
+    ints:Unsigned16 timeHiAndVersionInt;
+    ints:Unsigned8 clockSeqHiAndReservedInt;
+    ints:Unsigned8 clockSeqLoInt;
+    int nodeInt;
     string[] uuidArray;
+
     if (uuid is string) {
         if (!validate(uuid)) {
-            return error("invalid uuid");
+            return UuidError("Invalid UUID string provided");
         }
         uuidArray = stringutils:split(uuid, "-");
     } else {
         uuidArray = stringutils:split(getUUIDFromBytes(uuid), "-");
     }
-    int timeLowInt = check ints:fromHexString(uuidArray[0]);
-    int timeMidInt = check ints:fromHexString(uuidArray[1]);
-    int timeHiAndVersionInt = check ints:fromHexString(uuidArray[2]);
-    int clockSeqHiAndReservedInt = check ints:fromHexString(uuidArray[3].substring(0, 2));
-    int clockSeqLoInt = check ints:fromHexString(uuidArray[3].substring(2, 4));
-    int nodeInt = check ints:fromHexString(uuidArray[4]);
-
-    UUID uuidRecord = {
-        timeLow: <ints:Unsigned32>timeLowInt,
-        timeMid: <ints:Unsigned16>timeMidInt,
-        timeHiAndVersion: <ints:Unsigned16>timeHiAndVersionInt,
-        clockSeqHiAndReserved: <ints:Unsigned8>clockSeqHiAndReservedInt,
-        clockSeqLo: <ints:Unsigned8>clockSeqLoInt,
+    ints:Unsigned32|error timeLowResult = <ints:Unsigned32>(ints:fromHexString(uuidArray[0]));
+    if (timeLowResult is error) {
+        return UuidError("Failed to get int value of time-low hex string", timeLowResult);
+    } else {
+        timeLowInt = timeLowResult;
+    }
+    ints:Unsigned16|error timeMidResult = <ints:Unsigned16>(ints:fromHexString(uuidArray[1]));
+    if (timeMidResult is error) {
+        return UuidError("Failed to get int value of time-mid hex string", timeMidResult);
+    } else {
+        timeMidInt = timeMidResult;
+    }
+    ints:Unsigned16|error timeHiAndVersionResult = <ints:Unsigned16>(ints:fromHexString(uuidArray[2]));
+    if (timeHiAndVersionResult is error) {
+        return UuidError("Failed to get int value of time-hi-and-version hex string", timeHiAndVersionResult);
+    } else {
+        timeHiAndVersionInt = timeHiAndVersionResult;
+    }
+    ints:Unsigned8|error clockSeqHiAndReservedResult = <ints:Unsigned8>(ints:fromHexString(
+    uuidArray[3].substring(0, 2)));
+    if (clockSeqHiAndReservedResult is error) {
+        return UuidError("Failed to get int value of clock-seq-hi-and-reserved hex string",
+        clockSeqHiAndReservedResult);
+    } else {
+        clockSeqHiAndReservedInt = clockSeqHiAndReservedResult;
+    }
+    ints:Unsigned8|error clockSeqLoResult = <ints:Unsigned8>(ints:fromHexString(uuidArray[3].substring(2, 4)));
+    if (clockSeqLoResult is error) {
+        return UuidError("Failed to get int value of clock-seq-lo hex string", clockSeqLoResult);
+    } else {
+        clockSeqLoInt = clockSeqLoResult;
+    }
+    int|error nodeResult = ints:fromHexString(uuidArray[4]);
+    if (nodeResult is error) {
+        return UuidError("Failed to get int value of node string", nodeResult);
+    } else {
+        nodeInt = nodeResult;
+    }
+    Uuid uuidRecord = {
+        timeLow: timeLowInt,
+        timeMid: timeMidInt,
+        timeHiAndVersion: timeHiAndVersionInt,
+        clockSeqHiAndReserved: clockSeqHiAndReservedInt,
+        clockSeqLo: clockSeqLoInt,
         node: nodeInt
     };
     return uuidRecord;

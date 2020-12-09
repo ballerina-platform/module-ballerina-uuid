@@ -16,19 +16,14 @@
 
 import ballerina/java;
 
-isolated function newType4AsStringExtern() returns handle = @java:Method {
+isolated function getRandomUUID() returns handle = @java:Method {
     name: "randomUUID",
     'class: "java.util.UUID"
 } external;
 
-isolated function uuidVersionExtern(handle uuid) returns int = @java:Method {
-    name: "version",
-    'class: "java.util.UUID"
-} external;
-
-isolated function uuidObjectFromString(handle uuid) returns handle = @java:Method {
-    name: "fromString",
-    'class: "java.util.UUID"
+isolated function getUUIDVersion(string uuid) returns int = @java:Method {
+    name: "getVersion",
+    'class: "org.ballerinalang.stdlib.uuid.nativeimpl.Util"
 } external;
 
 isolated function getBytesFromUUID(string uuid) returns byte[] = @java:Method {
@@ -41,7 +36,7 @@ isolated function getUUIDFromBytes(byte[] uuid) returns string = @java:Method {
     'class: "org.ballerinalang.stdlib.uuid.nativeimpl.Util"
 } external;
 
-isolated function getHexString(string hex, int length) returns string {
+isolated function constructComponent(string hex, int length) returns string {
     string hexString = "";
     foreach var i in 0 ..< (length - hex.length()) {
         hexString += "0";

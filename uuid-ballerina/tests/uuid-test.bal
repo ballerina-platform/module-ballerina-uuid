@@ -23,17 +23,17 @@ isolated function testCreateType1AsString() {
 
 @test:Config {}
 isolated function testCreateType1AsRecord() {
-    test:assertTrue(createType1AsRecord() is UUID);
+    test:assertTrue(createType1AsRecord() is Uuid);
 }
 
 @test:Config {}
 isolated function testCreateType3AsString() {
-    test:assertEquals(createType3AsString(NameSpaceDNS, "python.org"), "6fa459ea-ee8a-3ca4-894e-db77e160355e");
+    test:assertEquals(createType3AsString(NAME_SPACE_DNS, "python.org"), "6fa459ea-ee8a-3ca4-894e-db77e160355e");
 }
 
 @test:Config {}
 isolated function testCreateType3AsRecord() {
-    UUID expcectedUUID = {
+    Uuid expcectedUUID = {
         timeLow: 1873041898,
         timeMid: 61066,
         timeHiAndVersion: 15524,
@@ -41,11 +41,8 @@ isolated function testCreateType3AsRecord() {
         clockSeqLo: 78,
         node: 241307928769886
     };
-    UUID|error actualUUID = createType3AsRecord(NameSpaceDNS, "python.org");
-    test:assertTrue(actualUUID is UUID);
-    if (actualUUID is UUID) {
-        test:assertEquals(actualUUID, expcectedUUID);
-    }
+    Uuid|Error actualUUID = createType3AsRecord(NAME_SPACE_DNS, "python.org");
+    test:assertEquals(actualUUID, expcectedUUID);
 }
 
 @test:Config {}
@@ -55,17 +52,17 @@ isolated function testCreateType4AsString() {
 
 @test:Config {}
 isolated function testCreateType4AsRecord() {
-    test:assertTrue(createType4AsRecord() is UUID);
+    test:assertTrue(createType4AsRecord() is Uuid);
 }
 
 @test:Config {}
 isolated function testCreateType5AsString() {
-    test:assertEquals(createType5AsString(NameSpaceDNS, "python.org"), "886313e1-3b8a-5372-9b90-0c9aee199e5d");
+    test:assertEquals(createType5AsString(NAME_SPACE_DNS, "python.org"), "886313e1-3b8a-5372-9b90-0c9aee199e5d");
 }
 
 @test:Config {}
 isolated function testCreateType5AsRecord() {
-    UUID expcectedUUID = {
+    Uuid expcectedUUID = {
         timeLow: 2288194529,
         timeMid: 15242,
         timeHiAndVersion: 21362,
@@ -73,11 +70,8 @@ isolated function testCreateType5AsRecord() {
         clockSeqLo: 144,
         node: 13859559153245
     };
-    UUID|error actualUUID = createType5AsRecord(NameSpaceDNS, "python.org");
-    test:assertTrue(actualUUID is UUID);
-    if (actualUUID is UUID) {
-        test:assertEquals(actualUUID, expcectedUUID);
-    }
+    Uuid|Error actualUUID = createType5AsRecord(NAME_SPACE_DNS, "python.org");
+    test:assertEquals(actualUUID, expcectedUUID);
 }
 
 @test:Config {}
@@ -87,7 +81,7 @@ isolated function testNilAsString() {
 
 @test:Config {}
 isolated function testNilAsRecord() {
-    UUID expcectedUUID = {
+    Uuid expcectedUUID = {
         timeLow: 0,
         timeMid: 0,
         timeHiAndVersion: 0,
@@ -106,10 +100,10 @@ isolated function testValidate() {
 
 @test:Config {}
 isolated function testUuidVersion() {
-    test:assertEquals(uuidVersion("4397465e-35f9-11eb-adc1-0242ac120002"), V1);
-    test:assertEquals(uuidVersion("6fa459ea-ee8a-3ca4-894e-db77e160355e"), V3);
-    test:assertEquals(uuidVersion("66a9f41f-4066-46d1-a838-51952fe64ff3"), V4);
-    test:assertEquals(uuidVersion("886313e1-3b8a-5372-9b90-0c9aee199e5d"), V5);
+    test:assertEquals(getVersion("4397465e-35f9-11eb-adc1-0242ac120002"), V1);
+    test:assertEquals(getVersion("6fa459ea-ee8a-3ca4-894e-db77e160355e"), V3);
+    test:assertEquals(getVersion("66a9f41f-4066-46d1-a838-51952fe64ff3"), V4);
+    test:assertEquals(getVersion("886313e1-3b8a-5372-9b90-0c9aee199e5d"), V5);
 }
 
 @test:Config {}
@@ -120,7 +114,7 @@ isolated function testStringToBytes() {
 
 @test:Config {}
 isolated function testRecordToBytes() {
-    UUID uuid = {
+    Uuid uuid = {
         timeLow: 1133987422,
         timeMid: 13817,
         timeHiAndVersion: 4587,
@@ -133,7 +127,7 @@ isolated function testRecordToBytes() {
 
 @test:Config {}
 isolated function testRecordToString() {
-    UUID uuid = {
+    Uuid uuid = {
         timeLow: 1133987422,
         timeMid: 13817,
         timeHiAndVersion: 4587,
@@ -152,7 +146,7 @@ isolated function testBytesToString() {
 
 @test:Config {}
 isolated function testStringToRecord() {
-    UUID expcectedUUID = {
+    Uuid expcectedUUID = {
         timeLow: 1133987422,
         timeMid: 13817,
         timeHiAndVersion: 4587,
@@ -165,7 +159,7 @@ isolated function testStringToRecord() {
 
 @test:Config {}
 isolated function testBytesToRecord() {
-    UUID expcectedUUID = {
+    Uuid expcectedUUID = {
         timeLow: 1133987422,
         timeMid: 13817,
         timeHiAndVersion: 4587,

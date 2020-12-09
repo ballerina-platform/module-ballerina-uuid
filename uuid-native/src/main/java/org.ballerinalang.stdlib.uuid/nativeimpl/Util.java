@@ -29,7 +29,18 @@ import java.time.LocalDateTime;
 import java.util.Random;
 import java.util.UUID;
 
+/**
+ * Utility functions relevant to uuid operations.
+ *
+ * @since 0.9.0
+ */
 public class Util {
+    private static final int YEAR = 1582;
+    private static final int MONTH = 10;
+    private static final int DAY_OF_MONTH = 15;
+    private static final int HOUR = 0;
+    private static final int MINUTE = 0;
+    private static final int SECOND = 0;
 
     public static BString generateType1UUID() {
         long most64SigBits = get64MostSignificantBitsForVersion1();
@@ -46,7 +57,7 @@ public class Util {
     }
 
     private static long get64MostSignificantBitsForVersion1() {
-        LocalDateTime start = LocalDateTime.of(1582, 10, 15, 0, 0, 0);
+        LocalDateTime start = LocalDateTime.of(YEAR, MONTH, DAY_OF_MONTH, HOUR, MINUTE, SECOND);
         Duration duration = Duration.between(start, LocalDateTime.now());
         long seconds = duration.getSeconds();
         long nanos = duration.getNano();
@@ -71,5 +82,9 @@ public class Util {
         long low = byteBuffer.getLong();
 
         return StringUtils.fromString(new UUID(high, low).toString());
+    }
+
+    public static int getVersion(BString uuid) {
+        return UUID.fromString(uuid.toString()).version();
     }
 }

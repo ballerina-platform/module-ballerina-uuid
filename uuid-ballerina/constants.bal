@@ -16,6 +16,9 @@
 
 import ballerina/lang.'int as ints;
 
+# String representing the nil uuid.
+const string NIL_UUID = "00000000-0000-0000-0000-000000000000";
+
 # Represents a UUID.
 #
 # + timeLow - The low field of the timestamp
@@ -24,7 +27,7 @@ import ballerina/lang.'int as ints;
 # + clockSeqHiAndReserved - The high field of the clock sequence multiplexed with the variant
 # + clockSeqLo - The low field of the clock sequence
 # + node - The spatially unique node identifier
-public type UUID readonly & record {
+public type Uuid readonly & record {
     ints:Unsigned32 timeLow;
     ints:Unsigned16 timeMid;
     ints:Unsigned16 timeHiAndVersion;
@@ -48,15 +51,15 @@ public enum Version {
 
 # Represents UUIDs strings of well known namespace IDs.
 #
-# + NameSpaceDNS- Namespace is a fully-qualified domain name
-# + NameSpaceURL- Namespace is a URL
-# + NameSpaceOID- Namespace is an ISO OID
-# + NameSpaceX500- Namespace is an X.500 DN (in DER or a text output format)
-# + NameSpaceNil- Empty UUID
+# + NAME_SPACE_DNS- Namespace is a fully-qualified domain name
+# + NAME_SPACE_URL- Namespace is a URL
+# + NAME_SPACE_OID- Namespace is an ISO OID
+# + NAME_SPACE_X500- Namespace is an X.500 DN (in DER or a text output format)
+# + NAME_SPACE_NIL- Empty UUID
 public enum NamespaceUUID {
-    NameSpaceDNS = "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
-    NameSpaceURL = "6ba7b811-9dad-11d1-80b4-00c04fd430c8",
-    NameSpaceOID = "6ba7b812-9dad-11d1-80b4-00c04fd430c8",
-    NameSpaceX500 = "6ba7b814-9dad-11d1-80b4-00c04fd430c8",
-    NameSpaceNil = "00000000-0000-0000-0000-000000000000"
+    NAME_SPACE_DNS = "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+    NAME_SPACE_URL = "6ba7b811-9dad-11d1-80b4-00c04fd430c8",
+    NAME_SPACE_OID = "6ba7b812-9dad-11d1-80b4-00c04fd430c8",
+    NAME_SPACE_X500 = "6ba7b814-9dad-11d1-80b4-00c04fd430c8",
+    NAME_SPACE_NIL = "00000000-0000-0000-0000-000000000000"
 }

@@ -56,15 +56,7 @@ allprojects {
                 password System.getenv("packagePAT")
             }
         }
-
-        maven {
-            url = 'https://maven.pkg.github.com/ballerina-platform/module-ballerina-uuid'
-            credentials {
-                username System.getenv("packageUser")
-                password System.getenv("packagePAT")
-            }
-        }
-
+        
         maven {
             url = 'https://maven.pkg.github.com/ballerina-platform/module-ballerina-stringutils'
             credentials {
