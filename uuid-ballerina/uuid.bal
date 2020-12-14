@@ -232,6 +232,9 @@ public isolated function getVersion(string uuid) returns Version|Error {
 # + return - UUID as bytes
 public isolated function toBytes(string|Uuid uuid) returns byte[]|Error {
     if (uuid is string) {
+        if (!validate(uuid)) {
+            return UuidError("Invalid UUID string provided");
+        }
         return getBytesFromUUID(uuid);
     } else {
         var uuidString = toString(uuid);
