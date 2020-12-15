@@ -48,6 +48,17 @@ task unpackJballerinaTools(type: Copy) {
     }
 }
 
+def packageName = "uuid"
+def packageOrg = "ballerina"
+def ballerinaConfigFile = new File("$project.projectDir/Ballerina.toml")
+def artifactBallerinaDocs = file("$project.projectDir/build/docs_parent/")
+def artifactCacheParent = file("$project.projectDir/build/cache_parent/")
+def artifactLibParent = file("$project.projectDir/build/lib_parent/")
+def tomlVersion = project.version.split("-")[0]
+def ballerinaCentralAccessToken = System.getenv('BALLERINA_CENTRAL_ACCESS_TOKEN')
+def originalConfig = ballerinaConfigFile.text
+def distributionBinPath =  project.projectDir.absolutePath + "/build/target/extracted-distributions/jballerina-tools-zip/jballerina-tools-${ballerinaLangVersion}/bin"
+
 task unpackStdLibs() {
     doLast {
         configurations.ballerinaStdLibs.resolvedConfiguration.resolvedArtifacts.each { artifact ->
@@ -60,6 +71,8 @@ task unpackStdLibs() {
 }
 
 task copyStdlibs(type: Copy) {
+    dependsOn(unpackJballerinaTools)
+    dependsOn(unpackStdLibs)
     def ballerinaDist = "build/target/extracted-distributions/jballerina-tools-zip/jballerina-tools-${ballerinaLangVersion}"
     into ballerinaDist
 
@@ -74,16 +87,6 @@ task copyStdlibs(type: Copy) {
         }
     }
 }
-
-def packageName = "uuid"
-def packageOrg = "ballerina"
-def ballerinaConfigFile = new File("$project.projectDir/Ballerina.toml")
-def artifactBallerinaDocs = file("$project.projectDir/build/docs_parent/")
-def artifactCacheParent = file("$project.projectDir/build/cache_parent/")
-def artifactLibParent = file("$project.projectDir/build/lib_parent/")
-def tomlVersion = project.version.split("-")[0]
-def ballerinaCentralAccessToken = System.getenv('BALLERINA_CENTRAL_ACCESS_TOKEN')
-def originalConfig = ballerinaConfigFile.text
 
 task updateTomlVerions {
     doLast {
@@ -103,31 +106,56 @@ task revertTomlFile {
     }
 }
 
+task ballerinaTest {
+    dependsOn(":uuid-native:build")
+    dependsOn(copyStdlibs)
+    dependsOn(updateTomlVerions)
+    finalizedBy(revertTomlFile)
+
+    def debugParams = ""
+    if (project.hasProperty("debug")) {
+        debugParams = "--debug ${project.findProperty("debug")}"
+    }
+
+    def balJavaDebugParam = ""
+    if (project.hasProperty("balJavaDebug")) {
+        balJavaDebugParam = "BAL_JAVA_DEBUG=${project.findProperty("balJavaDebug")}"
+    }
+
+    doLast {
+        exec {
+            workingDir project.projectDir
+            environment "JAVA_OPTS", "-DBALLERINA_DEV_COMPILE_BALLERINA_ORG=true"
+            if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+                commandLine 'cmd', '/c', "$balJavaDebugParam $distributionBinPath/ballerina.bat test ${debugParams} && exit %%ERRORLEVEL%%"
+            } else {
+                commandLine 'sh', '-c', "$balJavaDebugParam $distributionBinPath/ballerina test ${debugParams}"
+            }
+        }
+    }
+}
+
+test {
+    dependsOn(ballerinaTest)
+}
+
 task ballerinaBuild {
     inputs.dir file(project.projectDir)
+    dependsOn(":uuid-native:build")
+    dependsOn(copyStdlibs)
+    dependsOn(updateTomlVerions)
+    dependsOn(test)
     finalizedBy(revertTomlFile)
 
     doLast {
-        def distributionBinPath =  project.projectDir.absolutePath + "/build/target/extracted-distributions/jballerina-tools-zip/jballerina-tools-${ballerinaLangVersion}/bin"
-        def additionalBuildParams = ""
-
-        if (project.hasProperty("skipBallerinaTests")) {
-            additionalBuildParams = "--skip-tests"
-        }
-
-        if (project.hasProperty("debugBallerina")) {
-            def port = project.getProperty("debugBallerina").toString();
-            additionalBuildParams += "--debug ${port}"
-        }
-
         // Build and populate caches
         exec {
             workingDir project.projectDir
             environment "JAVA_OPTS", "-DBALLERINA_DEV_COMPILE_BALLERINA_ORG=true"
             if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-                commandLine 'cmd', '/c', "$distributionBinPath/ballerina.bat build ${additionalBuildParams} -c && exit %%ERRORLEVEL%%"
+                commandLine 'cmd', '/c', "$distributionBinPath/ballerina.bat build --skip-tests -c && exit %%ERRORLEVEL%%"
             } else {
-                commandLine 'sh', '-c', "$distributionBinPath/ballerina build ${additionalBuildParams} -c"
+                commandLine 'sh', '-c', "$distributionBinPath/ballerina build --skip-tests -c"
             }
         }
         copy {
@@ -201,9 +229,6 @@ publishing {
     }
 }
 
-ballerinaBuild.dependsOn ":uuid-native:build"
-unpackStdLibs.dependsOn unpackJballerinaTools
-copyStdlibs.dependsOn unpackStdLibs
-updateTomlVerions.dependsOn copyStdlibs
-ballerinaBuild.dependsOn updateTomlVerions
-build.dependsOn ballerinaBuild
+build {
+    dependsOn(ballerinaBuild)
+}
