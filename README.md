@@ -10,8 +10,6 @@ The Uuid library is one of the standard library modules of the<a target="_blank"
 
 This module provides functions related to UUID(Universally unique identifier).
 
-For more information go to [The Uuid Module](https://ballerina.io/swan-lake/learn/api-docs/ballerina/uuid/).
-
 For example demonstrations of the usage, go to [Ballerina By Examples](https://ballerina.io/swan-lake/learn/by-example/).
 
 ## Issues and Projects
