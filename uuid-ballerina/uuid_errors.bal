@@ -14,8 +14,5 @@
 // specific language governing permissions and limitations
 // under the License.
 
-# Represents the UUID error type with the message and the cause.
-public type UuidError distinct error;
-
 # Represents UUID module related errors.
-public type Error UuidError;
+public type Error distinct error;
