@@ -1,0 +1,20 @@
+[package]
+org = "ballerina"
+name = "uuid"
+version = "@toml.version@"
+
+[[dependency]]
+org = "ballerina"
+name = "crypto"
+version = "@stdlib.crypto.version@"
+
+[[dependency]]
+org = "ballerina"
+name = "stringutils"
+version = "@stdlib.stringutils.version@"
+
+[[platform.java11.dependency]]
+path = "../uuid-native/build/libs/uuid-native-@project.version@.jar"
+groupId = "ballerina"
+artifactId = "uuid"
+version = "@project.version@"
