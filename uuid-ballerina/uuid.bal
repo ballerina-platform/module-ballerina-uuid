@@ -52,7 +52,7 @@ public isolated function createType1AsRecord() returns Uuid|Error {
 public isolated function createType3AsString(NamespaceUUID namespace, string name) returns string|Error {
     string trimmedName = name.trim();
     if (trimmedName.length() == 0) {
-        return Error("Name cannot be empty");
+        return error Error("Name cannot be empty");
     }
     byte[] namespaceBytes = getBytesFromUUID(namespace);
     byte[] nameBytes = trimmedName.toBytes();
@@ -81,7 +81,7 @@ public isolated function createType3AsRecord(NamespaceUUID namespace, string nam
     if (uuid3 is string) {
         return check toRecord(uuid3);
     } else {
-        return Error("Failed to create UUID of type 3", uuid3);
+        return error Error("Failed to create UUID of type 3", uuid3);
     }
 }
 
@@ -117,7 +117,7 @@ public isolated function createType4AsRecord() returns Uuid|Error {
 public isolated function createType5AsString(NamespaceUUID namespace, string name) returns string|Error {
     string trimmedName = name.trim();
     if (trimmedName.length() == 0) {
-        return Error("Name cannot be empty");
+        return error Error("Name cannot be empty");
     }
     byte[] namespaceBytes = getBytesFromUUID(namespace);
     byte[] nameBytes = trimmedName.toBytes();
@@ -146,7 +146,7 @@ public isolated function createType5AsRecord(NamespaceUUID namespace, string nam
     if (uuid5 is string) {
         return check toRecord(uuid5);
     } else {
-        return Error("Failed to create UUID of type 3", uuid5);
+        return error Error("Failed to create UUID of type 3", uuid5);
     }
 }
 
@@ -200,7 +200,7 @@ public isolated function validate(string uuid) returns boolean {
 # + return - UUID version, or error
 public isolated function getVersion(string uuid) returns Version|Error {
     if (!validate(uuid)) {
-        return Error("Invalid UUID string provided");
+        return error Error("Invalid UUID string provided");
     }
     int v = getUUIDVersion(uuid);
     match v {
@@ -217,7 +217,7 @@ public isolated function getVersion(string uuid) returns Version|Error {
             return V5;
         }
         _ => {
-            return Error("Unsupported UUID version");
+            return error Error("Unsupported UUID version");
         }
     }
 }
@@ -233,7 +233,7 @@ public isolated function getVersion(string uuid) returns Version|Error {
 public isolated function toBytes(string|Uuid uuid) returns byte[]|Error {
     if (uuid is string) {
         if (!validate(uuid)) {
-            return Error("Invalid UUID string provided");
+            return error Error("Invalid UUID string provided");
         }
         return getBytesFromUUID(uuid);
     } else {
@@ -241,7 +241,7 @@ public isolated function toBytes(string|Uuid uuid) returns byte[]|Error {
         if (uuidString is string) {
             return getBytesFromUUID(uuidString);
         } else {
-            return Error("Failed to convert UUID record to a string", uuidString);
+            return error Error("Failed to convert UUID record to a string", uuidString);
         }
     }
 }
@@ -287,47 +287,48 @@ public isolated function toRecord(string|byte[] uuid) returns Uuid|Error {
 
     if (uuid is string) {
         if (!validate(uuid)) {
-            return Error("Invalid UUID string provided");
+            return error Error("Invalid UUID string provided");
         }
         uuidArray = stringutils:split(uuid, "-");
     } else {
         uuidArray = stringutils:split(getUUIDFromBytes(uuid), "-");
     }
-    ints:Unsigned32|error timeLowResult = <ints:Unsigned32>(ints:fromHexString(uuidArray[0]));
+    ints:Unsigned32|error timeLowResult = <ints:Unsigned32> checkpanic (ints:fromHexString(uuidArray[0]));
     if (timeLowResult is error) {
-        return Error("Failed to get int value of time-low hex string", timeLowResult);
+        return error Error("Failed to get int value of time-low hex string", timeLowResult);
     } else {
         timeLowInt = timeLowResult;
     }
-    ints:Unsigned16|error timeMidResult = <ints:Unsigned16>(ints:fromHexString(uuidArray[1]));
+    ints:Unsigned16|error timeMidResult = <ints:Unsigned16> checkpanic (ints:fromHexString(uuidArray[1]));
     if (timeMidResult is error) {
-        return Error("Failed to get int value of time-mid hex string", timeMidResult);
+        return error Error("Failed to get int value of time-mid hex string", timeMidResult);
     } else {
         timeMidInt = timeMidResult;
     }
-    ints:Unsigned16|error timeHiAndVersionResult = <ints:Unsigned16>(ints:fromHexString(uuidArray[2]));
+    ints:Unsigned16|error timeHiAndVersionResult = <ints:Unsigned16> checkpanic (ints:fromHexString(uuidArray[2]));
     if (timeHiAndVersionResult is error) {
-        return Error("Failed to get int value of time-hi-and-version hex string", timeHiAndVersionResult);
+        return error Error("Failed to get int value of time-hi-and-version hex string", timeHiAndVersionResult);
     } else {
         timeHiAndVersionInt = timeHiAndVersionResult;
     }
-    ints:Unsigned8|error clockSeqHiAndReservedResult = <ints:Unsigned8>(ints:fromHexString(
+    ints:Unsigned8|error clockSeqHiAndReservedResult = <ints:Unsigned8> checkpanic (ints:fromHexString(
     uuidArray[3].substring(0, 2)));
     if (clockSeqHiAndReservedResult is error) {
-        return Error("Failed to get int value of clock-seq-hi-and-reserved hex string",
+        return error Error("Failed to get int value of clock-seq-hi-and-reserved hex string",
         clockSeqHiAndReservedResult);
     } else {
         clockSeqHiAndReservedInt = clockSeqHiAndReservedResult;
     }
-    ints:Unsigned8|error clockSeqLoResult = <ints:Unsigned8>(ints:fromHexString(uuidArray[3].substring(2, 4)));
+    ints:Unsigned8|error clockSeqLoResult = <ints:Unsigned8> checkpanic
+    (ints:fromHexString(uuidArray[3].substring(2, 4)));
     if (clockSeqLoResult is error) {
-        return Error("Failed to get int value of clock-seq-lo hex string", clockSeqLoResult);
+        return error Error("Failed to get int value of clock-seq-lo hex string", clockSeqLoResult);
     } else {
         clockSeqLoInt = clockSeqLoResult;
     }
     int|error nodeResult = ints:fromHexString(uuidArray[4]);
     if (nodeResult is error) {
-        return Error("Failed to get int value of node string", nodeResult);
+        return error Error("Failed to get int value of node string", nodeResult);
     } else {
         nodeInt = nodeResult;
     }

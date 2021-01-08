@@ -18,41 +18,41 @@ import ballerina/test;
 
 @test:Config {}
 isolated function testCreateType3AsStringNegative() {
-    test:assertEquals(createType3AsString(NAME_SPACE_DNS, " "), Error("Name cannot be empty"));
+    test:assertEquals(createType3AsString(NAME_SPACE_DNS, " "), error Error("Name cannot be empty"));
 }
 
 @test:Config {}
 isolated function testCreateType3AsRecordNegative() {
-    test:assertEquals(createType3AsString(NAME_SPACE_DNS, " "), Error("Name cannot be empty"));
+    test:assertEquals(createType3AsString(NAME_SPACE_DNS, " "), error Error("Name cannot be empty"));
 }
 
 @test:Config {}
 isolated function testCreateType5AsStringNegative() {
-    test:assertEquals(createType5AsString(NAME_SPACE_DNS, " "), Error("Name cannot be empty"));
+    test:assertEquals(createType5AsString(NAME_SPACE_DNS, " "), error Error("Name cannot be empty"));
 }
 
 @test:Config {}
 isolated function testCreateType5AsRecordNegative() {
-    test:assertEquals(createType5AsString(NAME_SPACE_DNS, " "), Error("Name cannot be empty"));
+    test:assertEquals(createType5AsString(NAME_SPACE_DNS, " "), error Error("Name cannot be empty"));
 }
 
 @test:Config {}
 isolated function testUuidVersionNegative() {
     test:assertEquals(getVersion("4397465e-invalid-uuid-string-0242ac120002"),
-    Error("Invalid UUID string provided"));
+    error Error("Invalid UUID string provided"));
 }
 
 @test:Config {}
 isolated function testStringToBytesNegative() {
-    test:assertEquals(toBytes("4397465e-invalid-uuid-string-0242ac120002"), Error("Invalid UUID string provided"));
+    test:assertEquals(toBytes("4397465e-invalid-uuid-string-0242ac120002"), error Error("Invalid UUID string provided"));
 }
 
 @test:Config {}
 isolated function testStringToRecordNegative() {
-    test:assertEquals(toRecord("4397465e-invalid-uuid-string-0242ac120002"), Error("Invalid UUID string provided"));
-    test:assertEquals(toRecord("4397x65e-35f9-11eb-adc1-0242ac120002"), Error("Invalid UUID string provided"));
-    test:assertEquals(toRecord("4397465e-35x9-11eb-adc1-0242ac120002"), Error("Invalid UUID string provided"));
-    test:assertEquals(toRecord("4397465e-35f9-11xb-adc1-0242ac120002"), Error("Invalid UUID string provided"));
-    test:assertEquals(toRecord("4397465e-35f9-11eb-adx1-0242ac120002"), Error("Invalid UUID string provided"));
-    test:assertEquals(toRecord("4397465e-35f9-11eb-adc1-0242ac1200x2"), Error("Invalid UUID string provided"));
+    test:assertEquals(toRecord("4397465e-invalid-uuid-string-0242ac120002"), error Error("Invalid UUID string provided"));
+    test:assertEquals(toRecord("4397x65e-35f9-11eb-adc1-0242ac120002"), error Error("Invalid UUID string provided"));
+    test:assertEquals(toRecord("4397465e-35x9-11eb-adc1-0242ac120002"), error Error("Invalid UUID string provided"));
+    test:assertEquals(toRecord("4397465e-35f9-11xb-adc1-0242ac120002"), error Error("Invalid UUID string provided"));
+    test:assertEquals(toRecord("4397465e-35f9-11eb-adx1-0242ac120002"), error Error("Invalid UUID string provided"));
+    test:assertEquals(toRecord("4397465e-35f9-11eb-adc1-0242ac1200x2"), error Error("Invalid UUID string provided"));
 }
