@@ -17,7 +17,7 @@
 import ballerina/java;
 import ballerina/crypto;
 import ballerina/lang.'int as ints;
-import ballerina/stringutils;
+import ballerina/regex;
 
 # Returns a UUID of type 1 as a string.
 # ```ballerina
@@ -187,7 +187,7 @@ public isolated function nilAsRecord() returns Uuid {
 #
 # + return - true if a valied UUID, false if not
 public isolated function validate(string uuid) returns boolean {
-    return stringutils:matches(uuid, "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}");
+    return regex:matches(uuid, "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}");
 }
 
 # Detect RFC version of a UUID. Returns an error if the UUID is invalid.
@@ -289,9 +289,9 @@ public isolated function toRecord(string|byte[] uuid) returns Uuid|Error {
         if (!validate(uuid)) {
             return error Error("Invalid UUID string provided");
         }
-        uuidArray = stringutils:split(uuid, "-");
+        uuidArray = regex:split(uuid, "-");
     } else {
-        uuidArray = stringutils:split(getUUIDFromBytes(uuid), "-");
+        uuidArray = regex:split(getUUIDFromBytes(uuid), "-");
     }
     ints:Unsigned32|error timeLowResult = <ints:Unsigned32> checkpanic (ints:fromHexString(uuidArray[0]));
     if (timeLowResult is error) {

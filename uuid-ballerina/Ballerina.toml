@@ -10,8 +10,8 @@ version = "@stdlib.crypto.version@"
 
 [[dependency]]
 org = "ballerina"
-name = "stringutils"
-version = "@stdlib.stringutils.version@"
+name = "regex"
+version = "@stdlib.regex.version@"
 
 [[platform.java11.dependency]]
 path = "../uuid-native/build/libs/uuid-native-@project.version@.jar"
