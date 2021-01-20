@@ -18,10 +18,10 @@
 
 package org.ballerinalang.stdlib.uuid.nativeimpl;
 
-import io.ballerina.runtime.api.values.BArray;
 import io.ballerina.runtime.api.creators.ValueCreator;
-import io.ballerina.runtime.api.values.BString;
 import io.ballerina.runtime.api.utils.StringUtils;
+import io.ballerina.runtime.api.values.BArray;
+import io.ballerina.runtime.api.values.BString;
 
 import java.nio.ByteBuffer;
 import java.time.Duration;
