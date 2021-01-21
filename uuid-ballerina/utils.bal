@@ -14,7 +14,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
-import ballerina/java;
+import ballerina/jballerina.java;
 
 isolated function getRandomUUID() returns handle = @java:Method {
     name: "randomUUID",
