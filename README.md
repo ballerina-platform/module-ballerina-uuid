@@ -1,4 +1,4 @@
-Ballerina Uuid Library
+Ballerina Uuid Package
 ===================
 
   [![Build](https://github.com/ballerina-platform/module-ballerina-uuid/workflows/Build/badge.svg)](https://github.com/ballerina-platform/module-ballerina-uuid/actions?query=workflow%3ABuild)
@@ -6,9 +6,9 @@ Ballerina Uuid Library
   [![Github issues](https://img.shields.io/github/issues/ballerina-platform/ballerina-standard-library/module/uuid.svg?label=Open%20Issues)](https://github.com/ballerina-platform/ballerina-standard-library/labels/module%2Fuuid)
   [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-The Uuid library is one of the standard library modules of the<a target="_blank" href="https://ballerina.io/"> Ballerina</a> language.
+The Uuid package is one of the standard library packages of the<a target="_blank" href="https://ballerina.io/"> Ballerina</a> language.
 
-This module provides functions related to UUID(Universally unique identifier).
+This package provides functions related to UUID(Universally unique identifier).
 
 For example demonstrations of the usage, go to [Ballerina By Examples](https://ballerina.io/swan-lake/learn/by-example/).
 
@@ -16,7 +16,7 @@ For example demonstrations of the usage, go to [Ballerina By Examples](https://b
 
 Issues and Projects tabs are disabled for this repository as this is part of the Ballerina Standard Library. To report bugs, request new features, start new discussions, view project boards, etc. please visit Ballerina Standard Library [parent repository](https://github.com/ballerina-platform/ballerina-standard-library).
 
-This repository only contains the source code for the module.
+This repository only contains the source code for the package.
 
 ## Building from the Source
 
@@ -38,7 +38,7 @@ This repository only contains the source code for the module.
 
 Execute the commands below to build from source.
 
-1. To build the library:
+1. To build the package:
 
         ./gradlew clean build
 
@@ -46,7 +46,7 @@ Execute the commands below to build from source.
 
         ./gradlew clean test
 
-3. To build the module without the tests:
+3. To build the package without the tests:
 
         ./gradlew clean build -x test
 
