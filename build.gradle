@@ -98,10 +98,7 @@ subprojects {
         ballerinaStdLibs "org.ballerinalang:time-ballerina:${project.stdlibTimeVersion}"
     }
 }
-def moduleVersion = project.version
-if (moduleVersion.indexOf('-') != -1) {
-    moduleVersion = moduleVersion.replace("-SNAPSHOT", "")
-}
+def moduleVersion = project.version.replace("-SNAPSHOT", "")
 
 release {
     failOnPublishNeeded = false
