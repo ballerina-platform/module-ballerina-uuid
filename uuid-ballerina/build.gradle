@@ -175,6 +175,10 @@ task ballerinaTest {
     }
 }
 
+test {
+    dependsOn(ballerinaTest)
+}
+
 task ballerinaBuild {
     inputs.dir file(project.projectDir)
     dependsOn(":${packageName}-native:build")
