@@ -21,6 +21,8 @@ isolated function testCreateType3AsStringNegative() {
     string|Error uuid3 = createType3AsString(NAME_SPACE_DNS, " ");
     if (uuid3 is string) {
         test:assertFail("function did not return an error when the name is empty");
+    } else {
+        test:assertEquals(uuid3.message(), "Name cannot be empty");
     }
 }
 
@@ -29,6 +31,9 @@ isolated function testCreateType3AsRecordNegative() {
     Uuid|Error uuid3 = createType3AsRecord(NAME_SPACE_DNS, " ");
     if (uuid3 is Uuid) {
         test:assertFail("function did not return an error when the name is empty");
+    } else {
+        test:assertEquals(uuid3.message(), "Failed to create UUID of type 3");
+        test:assertEquals((<error>uuid3.cause()).message(), "Name cannot be empty");
     }
 }
 
@@ -37,6 +42,8 @@ isolated function testCreateType5AsStringNegative() {
     string|Error uuid5 = createType5AsString(NAME_SPACE_DNS, " ");
     if (uuid5 is string) {
         test:assertFail("function did not return an error when the name is empty");
+    } else {
+        test:assertEquals(uuid5.message(), "Name cannot be empty");
     }
 }
 
@@ -45,49 +52,38 @@ isolated function testCreateType5AsRecordNegative() {
     Uuid|Error uuid5 = createType5AsRecord(NAME_SPACE_DNS, " ");
     if (uuid5 is Uuid) {
         test:assertFail("function did not return an error when the name is empty");
+    } else {
+        test:assertEquals(uuid5.message(), "Failed to create UUID of type 3");
+        test:assertEquals((<error>uuid5.cause()).message(), "Name cannot be empty");
     }
 }
 
 @test:Config {}
 isolated function testUuidVersionNegative() {
-    Version|Error uuid5 = getVersion("4397465e-invalid-uuid-string-0242ac120002");
-    if (uuid5 is Version) {
+    Version|Error v = getVersion("4397465e-invalid-uuid-string-0242ac120002");
+    if (v is Version) {
         test:assertFail("function did not return an error for invalid UUID string");
+    } else {
+        test:assertEquals(v.message(), "Invalid UUID string provided");
     }
 }
 
 @test:Config {}
 isolated function testStringToBytesNegative() {
-    byte[]|Error uuid5 = toBytes("4397465e-invalid-uuid-string-0242ac120002");
-    if (uuid5 is byte[]) {
+    byte[]|Error b = toBytes("4397465e-invalid-uuid-string-0242ac120002");
+    if (b is byte[]) {
         test:assertFail("function did not return an error for invalid UUID string");
+    } else {
+        test:assertEquals(b.message(), "Invalid UUID string provided");
     }
 }
 
 @test:Config {}
 isolated function testStringToRecordNegative() {
-    Uuid|Error r1 = toRecord("4397465e-invalid-uuid-string-0242ac120002");
-    if (r1 is Uuid) {
+    Uuid|Error r = toRecord("4397465e-invalid-uuid-string-0242ac120002");
+    if (r is Uuid) {
         test:assertFail("function did not return an error for invalid UUID string");
-    }
-    Uuid|Error r2 = toRecord("4397x65e-35f9-11eb-adc1-0242ac120002");
-    if (r2 is Uuid) {
-        test:assertFail("function did not return an error for invalid UUID string");
-    }
-    Uuid|Error r3 = toRecord("4397465e-35x9-11eb-adc1-0242ac120002");
-    if (r3 is Uuid) {
-        test:assertFail("function did not return an error for invalid UUID string");
-    }
-    Uuid|Error r4 = toRecord("4397465e-35f9-11xb-adc1-0242ac120002");
-    if (r4 is Uuid) {
-        test:assertFail("function did not return an error for invalid UUID string");
-    }
-    Uuid|Error r5 = toRecord("4397465e-35f9-11eb-adx1-0242ac120002");
-    if (r5 is Uuid) {
-        test:assertFail("function did not return an error for invalid UUID string");
-    }
-    Uuid|Error r6 = toRecord("4397465e-35f9-11eb-adc1-0242ac1200x2");
-    if (r6 is Uuid) {
-        test:assertFail("function did not return an error for invalid UUID string");
+    } else {
+        test:assertEquals(r.message(), "Invalid UUID string provided");
     }
 }
