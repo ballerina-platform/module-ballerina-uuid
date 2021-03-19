@@ -1,6 +1,0 @@
-fixes:
-  - "ballerina/uuid/*/::uuid-ballerina/"
-
-ignore:
-  - "**/tests"
-
