@@ -9,7 +9,9 @@ Ballerina Uuid Package
 
 The Uuid package is one of the standard library packages of the<a target="_blank" href="https://ballerina.io/"> Ballerina</a> language.
 
-This package provides functions related to UUID(Universally unique identifier).
+This package provides APIs to generate and inspect UUIDs (Universally unique identifier).
+
+The UUIDs are generated based on the [RFC 4122](https://www.rfc-editor.org/rfc/rfc4122.html) standard. Other operations include validating a given UUID string and getting the version of a UUID string.
 
 For example demonstrations of the usage, go to [Ballerina By Examples](https://ballerina.io/swan-lake/learn/by-example/).
 

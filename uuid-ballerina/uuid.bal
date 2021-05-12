@@ -35,7 +35,7 @@ public isolated function createType1AsString() returns string = @java:Method {
 # uuid:Uuid|uuid:Error uuid1 = uuid:createType1AsRecord();
 # ```
 #
-# + return - UUID of type 1 as a UUID record or error
+# + return - UUID of type 1 as a UUID record or else `uuid:Error`
 public isolated function createType1AsRecord() returns Uuid|Error {
     return check toRecord(createType1AsString());
 }
@@ -45,10 +45,10 @@ public isolated function createType1AsRecord() returns Uuid|Error {
 # string|uuid:Error uuid3 = uuid:createType3AsString(uuid:NAME_SPACE_DNS, “ballerina.io”);
 # ```
 #
-# + namespace - string representation for pre-defined namespace UUIDs
-# + name - a name within the namespace
+# + namespace - String representation for a pre-defined namespace UUID
+# + name - A name within the namespace
 #
-# + return - UUID of type 3 as a string
+# + return - UUID of type 3 as a string or else `uuid:Error`
 public isolated function createType3AsString(NamespaceUUID namespace, string name) returns string|Error {
     string trimmedName = name.trim();
     if (trimmedName.length() == 0) {
@@ -72,10 +72,10 @@ public isolated function createType3AsString(NamespaceUUID namespace, string nam
 # uuid:Uuid|uuid:Error uuid3 = uuid:createType3AsRecord(uuid:NAME_SPACE_DNS, “ballerina.io”);
 # ```
 #
-# + namespace - string representation for pre-defined namespace UUIDs
-# + name - a name within the namespace
+# + namespace - String representation for a pre-defined namespace UUID
+# + name - A name within the namespace
 #
-# + return - UUID of type 3 as a UUID record or error
+# + return - UUID of type 3 as a UUID record or else `uuid:Error`
 public isolated function createType3AsRecord(NamespaceUUID namespace, string name) returns Uuid|Error {
     string|Error uuid3 = createType3AsString(namespace, name);
     if (uuid3 is string) {
@@ -100,7 +100,7 @@ public isolated function createType4AsString() returns string {
 # uuid:Uuid|uuid:Error uuid4 = uuid:createType4AsRecord();
 # ```
 #
-# + return - UUID of type 4 as a UUID record or error
+# + return - UUID of type 4 as a UUID record or else `uuid:Error`
 public isolated function createType4AsRecord() returns Uuid|Error {
     return check toRecord(createType4AsString());
 }
@@ -110,10 +110,10 @@ public isolated function createType4AsRecord() returns Uuid|Error {
 # string|uuid:Error uuid5 = uuid:createType5AsString(uuid:NAME_SPACE_DNS, “ballerina.io”);
 # ```
 #
-# + namespace - string representation for pre-defined namespace UUIDs
-# + name - a name within the namespace
+# + namespace - String representation for a pre-defined namespace UUID
+# + name - A name within the namespace
 #
-# + return - UUID of type 5 as a string
+# + return - UUID of type 5 as a string or else `uuid:Error`
 public isolated function createType5AsString(NamespaceUUID namespace, string name) returns string|Error {
     string trimmedName = name.trim();
     if (trimmedName.length() == 0) {
@@ -137,10 +137,10 @@ public isolated function createType5AsString(NamespaceUUID namespace, string nam
 # uuid:Uuid|uuid:Error uuid5 = uuid:createType5AsRecord(uuid:NAME_SPACE_DNS, “ballerina.io”);
 # ```
 #
-# + namespace - string representation for pre-defined namespace UUIDs
-# + name - a name within the namespace
+# + namespace - String representation for a pre-defined namespace UUID
+# + name - A name within the namespace
 #
-# + return - UUID of type 5 as a UUID record or error
+# + return - UUID of type 5 as a UUID record or else `uuid:Error`
 public isolated function createType5AsRecord(NamespaceUUID namespace, string name) returns Uuid|Error {
     string|Error uuid5 = createType5AsString(namespace, name);
     if (uuid5 is string) {
@@ -183,7 +183,7 @@ public isolated function nilAsRecord() returns Uuid {
 # boolean valid = uuid:validate("4397465e-35f9-11eb-adc1-0242ac120002");
 # ```
 #
-# + uuid - UUID to be tested
+# + uuid - UUID string to be validated
 #
 # + return - true if a valied UUID, false if not
 public isolated function validate(string uuid) returns boolean {
@@ -195,9 +195,9 @@ public isolated function validate(string uuid) returns boolean {
 # uuid:Version|uuid:Error v = uuid:getVersion("4397465e-35f9-11eb-adc1-0242ac120002");
 # ```
 #
-# + uuid - UUID
+# + uuid - UUID string to be checked
 #
-# + return - UUID version, or error
+# + return - UUID version or else `uuid:Error`
 public isolated function getVersion(string uuid) returns Version|Error {
     if (!validate(uuid)) {
         return error Error("Invalid UUID string provided");
@@ -229,7 +229,7 @@ public isolated function getVersion(string uuid) returns Version|Error {
 #
 # + uuid - UUID to be converted
 #
-# + return - UUID as bytes
+# + return - UUID as bytes or else `uuid:Error`
 public isolated function toBytes(string|Uuid uuid) returns byte[]|Error {
     if (uuid is string) {
         if (!validate(uuid)) {
@@ -253,7 +253,7 @@ public isolated function toBytes(string|Uuid uuid) returns byte[]|Error {
 #
 # + uuid - UUID to be converted
 #
-# + return - UUID as string
+# + return - UUID as string or else `uuid:Error`
 public isolated function toString(byte[]|Uuid uuid) returns string|error {
     if (uuid is byte[]) {
         return getUUIDFromBytes(uuid);
@@ -275,7 +275,7 @@ public isolated function toString(byte[]|Uuid uuid) returns string|error {
 #
 # + uuid - UUID to be converted
 #
-# + return - UUID as record
+# + return - UUID as record or else `uuid:Error`
 public isolated function toRecord(string|byte[] uuid) returns Uuid|Error {
     ints:Unsigned32 timeLowInt;
     ints:Unsigned16 timeMidInt;
