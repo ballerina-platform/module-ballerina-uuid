@@ -1,4 +1,4 @@
-## Module Overview
+## Overview
 
 This module provides APIs to generate and inspect UUIDs (Universally unique identifier).
 
