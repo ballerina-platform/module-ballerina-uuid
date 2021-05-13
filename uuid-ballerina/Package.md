@@ -4,7 +4,6 @@ The UUID library is one of the standard library packages of the <a target="_blan
 
 This package provides APIs to generate and inspect UUIDs (Universally unique identifier).
 
-For example demonstrations of the usage, go to [Ballerina By Examples](https://ballerina.io/learn/by-example/).
 
 ## Report Issues
 
