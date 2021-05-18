@@ -7,7 +7,7 @@ Ballerina Uuid Package
   [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
   [![codecov](https://codecov.io/gh/ballerina-platform/module-ballerina-uuid/branch/main/graph/badge.svg)](https://codecov.io/gh/ballerina-platform/module-ballerina-uuid)
 
-The Uuid package is one of the standard library packages of the<a target="_blank" href="https://ballerina.io/"> Ballerina</a> language.
+The `uuid` package is one of the standard library packages of the<a target="_blank" href="https://ballerina.io/"> Ballerina</a> language.
 
 This package provides APIs to generate and inspect UUIDs (Universally unique identifier).
 

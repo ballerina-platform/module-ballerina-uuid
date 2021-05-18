@@ -1,6 +1,6 @@
 ## Overview
 
-This module provides APIs to generate and inspect UUIDs (Universally unique identifier).
+This module provides APIs to generate and inspect UUIDs (Universally Unique Identifier).
 
 The UUIDs are generated based on the [RFC 4122](https://www.rfc-editor.org/rfc/rfc4122.html) standard. UUID module supports generating 4 versions of UUIDs.
 
@@ -14,7 +14,7 @@ Cryptographic hashing and application-provided text strings are used to generate
 
 ### Version 4
 
-Uses a pseudo-random number generator to generate the UUID. Every bit of the string is total randomly generated.
+Uses a pseudo-random number generator to generate the UUID. Every bit of the string is randomly generated.
 
 ### Version 5
 
