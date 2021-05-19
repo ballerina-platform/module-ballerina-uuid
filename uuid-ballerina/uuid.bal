@@ -32,23 +32,23 @@ public isolated function createType1AsString() returns string = @java:Method {
 
 # Returns a UUID of type 1 as a UUID record.
 # ```ballerina
-# uuid:Uuid|uuid:Error uuid1 = uuid:createType1AsRecord();
+# uuid:Uuid uuid1 = check uuid:createType1AsRecord();
 # ```
 #
-# + return - UUID of type 1 as a UUID record or error
+# + return - UUID of type 1 as a UUID record or else a `uuid:Error`
 public isolated function createType1AsRecord() returns Uuid|Error {
     return check toRecord(createType1AsString());
 }
 
 # Returns a UUID of type 3 as a string.
 # ```ballerina
-# string|uuid:Error uuid3 = uuid:createType3AsString(uuid:NAME_SPACE_DNS, “ballerina.io”);
+# string uuid3 = check uuid:createType3AsString(uuid:NAME_SPACE_DNS, “ballerina.io”);
 # ```
 #
-# + namespace - string representation for pre-defined namespace UUIDs
-# + name - a name within the namespace
+# + namespace - String representation for a pre-defined namespace UUID
+# + name - A name within the namespace
 #
-# + return - UUID of type 3 as a string
+# + return - UUID of type 3 as a string or else a `uuid:Error`
 public isolated function createType3AsString(NamespaceUUID namespace, string name) returns string|Error {
     string trimmedName = name.trim();
     if (trimmedName.length() == 0) {
@@ -69,13 +69,13 @@ public isolated function createType3AsString(NamespaceUUID namespace, string nam
 
 # Returns a UUID of type 3 as a UUID record.
 # ```ballerina
-# uuid:Uuid|uuid:Error uuid3 = uuid:createType3AsRecord(uuid:NAME_SPACE_DNS, “ballerina.io”);
+# uuid:Uuid uuid3 = check uuid:createType3AsRecord(uuid:NAME_SPACE_DNS, “ballerina.io”);
 # ```
 #
-# + namespace - string representation for pre-defined namespace UUIDs
-# + name - a name within the namespace
+# + namespace - String representation for a pre-defined namespace UUID
+# + name - A name within the namespace
 #
-# + return - UUID of type 3 as a UUID record or error
+# + return - UUID of type 3 as a UUID record or else a `uuid:Error`
 public isolated function createType3AsRecord(NamespaceUUID namespace, string name) returns Uuid|Error {
     string|Error uuid3 = createType3AsString(namespace, name);
     if (uuid3 is string) {
@@ -97,23 +97,23 @@ public isolated function createType4AsString() returns string {
 
 # Returns a UUID of type 4 as a UUID record.
 # ```ballerina
-# uuid:Uuid|uuid:Error uuid4 = uuid:createType4AsRecord();
+# uuid:Uuid uuid4 = check uuid:createType4AsRecord();
 # ```
 #
-# + return - UUID of type 4 as a UUID record or error
+# + return - UUID of type 4 as a UUID record or else a `uuid:Error`
 public isolated function createType4AsRecord() returns Uuid|Error {
     return check toRecord(createType4AsString());
 }
 
 # Returns a UUID of type 5 as a string.
 # ```ballerina
-# string|uuid:Error uuid5 = uuid:createType5AsString(uuid:NAME_SPACE_DNS, “ballerina.io”);
+# string uuid5 = check uuid:createType5AsString(uuid:NAME_SPACE_DNS, “ballerina.io”);
 # ```
 #
-# + namespace - string representation for pre-defined namespace UUIDs
-# + name - a name within the namespace
+# + namespace - String representation for a pre-defined namespace UUID
+# + name - A name within the namespace
 #
-# + return - UUID of type 5 as a string
+# + return - UUID of type 5 as a string or else a `uuid:Error`
 public isolated function createType5AsString(NamespaceUUID namespace, string name) returns string|Error {
     string trimmedName = name.trim();
     if (trimmedName.length() == 0) {
@@ -134,13 +134,13 @@ public isolated function createType5AsString(NamespaceUUID namespace, string nam
 
 # Returns a UUID of type 5 as a UUID record.
 # ```ballerina
-# uuid:Uuid|uuid:Error uuid5 = uuid:createType5AsRecord(uuid:NAME_SPACE_DNS, “ballerina.io”);
+# uuid:Uuid uuid5 = check uuid:createType5AsRecord(uuid:NAME_SPACE_DNS, “ballerina.io”);
 # ```
 #
-# + namespace - string representation for pre-defined namespace UUIDs
-# + name - a name within the namespace
+# + namespace - String representation for a pre-defined namespace UUID
+# + name - A name within the namespace
 #
-# + return - UUID of type 5 as a UUID record or error
+# + return - UUID of type 5 as a UUID record or else a `uuid:Error`
 public isolated function createType5AsRecord(NamespaceUUID namespace, string name) returns Uuid|Error {
     string|Error uuid5 = createType5AsString(namespace, name);
     if (uuid5 is string) {
@@ -183,7 +183,7 @@ public isolated function nilAsRecord() returns Uuid {
 # boolean valid = uuid:validate("4397465e-35f9-11eb-adc1-0242ac120002");
 # ```
 #
-# + uuid - UUID to be tested
+# + uuid - UUID string to be validated
 #
 # + return - true if a valied UUID, false if not
 public isolated function validate(string uuid) returns boolean {
@@ -192,12 +192,12 @@ public isolated function validate(string uuid) returns boolean {
 
 # Detect RFC version of a UUID. Returns an error if the UUID is invalid.
 # ```ballerina
-# uuid:Version|uuid:Error v = uuid:getVersion("4397465e-35f9-11eb-adc1-0242ac120002");
+# uuid:Version v = check uuid:getVersion("4397465e-35f9-11eb-adc1-0242ac120002");
 # ```
 #
-# + uuid - UUID
+# + uuid - UUID string to be checked
 #
-# + return - UUID version, or error
+# + return - UUID version or else a `uuid:Error`
 public isolated function getVersion(string uuid) returns Version|Error {
     if (!validate(uuid)) {
         return error Error("Invalid UUID string provided");
@@ -222,14 +222,14 @@ public isolated function getVersion(string uuid) returns Version|Error {
     }
 }
 
-# Convert to an array of bytes. Returns an error if the UUID is invalid.
+# Converts to an array of bytes. Returns an error if the UUID is invalid.
 # ```ballerina
-# byte[]|uuid:Error b = uuid:toBytes(“6ec0bd7f-11c0-43da-975e-2aesass0b”);
+# byte[] b = check uuid:toBytes(“6ec0bd7f-11c0-43da-975e-2aesass0b”);
 # ```
 #
 # + uuid - UUID to be converted
 #
-# + return - UUID as bytes
+# + return - UUID as bytes or else a `uuid:Error`
 public isolated function toBytes(string|Uuid uuid) returns byte[]|Error {
     if (uuid is string) {
         if (!validate(uuid)) {
@@ -246,14 +246,14 @@ public isolated function toBytes(string|Uuid uuid) returns byte[]|Error {
     }
 }
 
-# Convert to UUID string. Returns error if the array is invalid.
+# Converts to a UUID string. Returns an error if the array is invalid.
 # ```ballerina
-# string|error s = uuid:toString([5, 12, 16, 35]);
+# string s = check uuid:toString([5, 12, 16, 35]);
 # ```
 #
 # + uuid - UUID to be converted
 #
-# + return - UUID as string
+# + return - UUID as string or else a `uuid:Error`
 public isolated function toString(byte[]|Uuid uuid) returns string|error {
     if (uuid is byte[]) {
         return getUUIDFromBytes(uuid);
@@ -267,15 +267,15 @@ public isolated function toString(byte[]|Uuid uuid) returns string|error {
     }
 }
 
-# Convert to UUID record. Returns error if the array is invalid.
+# Converts to a UUID record. Returns an error if the array is invalid.
 # ```ballerina
-# uuid:Uuid|uuid:Error r1 = uuid:toRecord("4397465e-35f9-11eb-adc1-0242ac120002");
-# uuid:Uuid|uuid:Error r2 = uuid:toRecord([10, 20, 30]);
+# uuid:Uuid r1 = check uuid:toRecord("4397465e-35f9-11eb-adc1-0242ac120002");
+# uuid:Uuid r2 = check uuid:toRecord([10, 20, 30]);
 # ```
 #
 # + uuid - UUID to be converted
 #
-# + return - UUID as record
+# + return - UUID as record or else a `uuid:Error`
 public isolated function toRecord(string|byte[] uuid) returns Uuid|Error {
     ints:Unsigned32 timeLowInt;
     ints:Unsigned16 timeMidInt;
