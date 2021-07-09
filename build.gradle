@@ -29,7 +29,7 @@ ext.slf4jVersion = project.slf4jVersion
 ext.apacheCommonsVersion = "3.8.1"
 
 allprojects {
-    group = 'org.ballerinalang'
+    group = project.group
     version = project.version
 
     apply plugin: 'jacoco'
@@ -72,10 +72,10 @@ subprojects {
 
     dependencies {
         /* Standard libraries */
-        ballerinaStdLibs "org.ballerinalang:regex-ballerina:${project.stdlibRegexVersion}"
-        ballerinaStdLibs "org.ballerinalang:crypto-ballerina:${project.stdlibCryptoVersion}"
+        ballerinaStdLibs "io.ballerina.stdlib:regex-ballerina:${project.stdlibRegexVersion}"
+        ballerinaStdLibs "io.ballerina.stdlib:crypto-ballerina:${project.stdlibCryptoVersion}"
         // Transitive dependencies
-        ballerinaStdLibs "org.ballerinalang:time-ballerina:${project.stdlibTimeVersion}"
+        ballerinaStdLibs "io.ballerina.stdlib:time-ballerina:${project.stdlibTimeVersion}"
     }
 }
 def moduleVersion = project.version.replace("-SNAPSHOT", "")
