@@ -12,8 +12,14 @@ plugins {
 }
 
 rootProject.name = 'uuid'
-include(':build-config:checkstyle')
-include ':uuid-native', ':uuid-ballerina'
+
+include ':checkstyle'
+include ':uuid-native'
+include ':uuid-ballerina'
+
+project(':checkstyle').projectDir = file("build-config${File.separator}checkstyle")
+project(':uuid-native').projectDir = file('native')
+project(':uuid-ballerina').projectDir = file('ballerina')
 
 gradleEnterprise {
     buildScan {

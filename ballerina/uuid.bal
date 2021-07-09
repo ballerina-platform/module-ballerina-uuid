@@ -27,7 +27,7 @@ import ballerina/regex;
 # + return - UUID of type 1 as a string
 public isolated function createType1AsString() returns string = @java:Method {
     name: "generateType1UUID",
-    'class: "org.ballerinalang.stdlib.uuid.nativeimpl.Util"
+    'class: "io.ballerina.stdlib.uuid.nativeimpl.Util"
 } external;
 
 # Returns a UUID of type 1 as a UUID record.

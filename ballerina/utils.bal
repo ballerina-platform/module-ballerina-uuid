@@ -23,17 +23,17 @@ isolated function getRandomUUID() returns handle = @java:Method {
 
 isolated function getUUIDVersion(string uuid) returns int = @java:Method {
     name: "getVersion",
-    'class: "org.ballerinalang.stdlib.uuid.nativeimpl.Util"
+    'class: "io.ballerina.stdlib.uuid.nativeimpl.Util"
 } external;
 
 isolated function getBytesFromUUID(string uuid) returns byte[] = @java:Method {
     name: "getBytesFromUUID",
-    'class: "org.ballerinalang.stdlib.uuid.nativeimpl.Util"
+    'class: "io.ballerina.stdlib.uuid.nativeimpl.Util"
 } external;
 
 isolated function getUUIDFromBytes(byte[] uuid) returns string = @java:Method {
     name: "getUUIDFromBytes",
-    'class: "org.ballerinalang.stdlib.uuid.nativeimpl.Util"
+    'class: "io.ballerina.stdlib.uuid.nativeimpl.Util"
 } external;
 
 isolated function constructComponent(string hex, int length) returns string {
