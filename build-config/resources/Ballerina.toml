@@ -1,8 +1,8 @@
 [package]
 org = "ballerina"
 name = "uuid"
-version = "1.0.0"
+version = "@toml.version@"
 distribution = "slbeta3"
 
 [[platform.java11.dependency]]
-path = "../native/build/libs/uuid-native-1.0.0-SNAPSHOT.jar"
+path = "../native/build/libs/uuid-native-@project.version@.jar"
