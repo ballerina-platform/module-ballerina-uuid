@@ -2,6 +2,10 @@
 org = "ballerina"
 name = "uuid"
 version = "1.0.1"
+authors = ["Ballerina"]
+keywords = ["version", "unique"]
+repository = "https://github.com/ballerina-platform/module-ballerina-uuid"
+license = ["Apache-2.0"]
 distribution = "slbeta3"
 
 [[platform.java11.dependency]]
