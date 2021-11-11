@@ -38,7 +38,7 @@ isolated function getUUIDFromBytes(byte[] uuid) returns string = @java:Method {
 
 isolated function constructComponent(string hex, int length) returns string {
     string hexString = "";
-    foreach var i in 0 ..< (length - hex.length()) {
+    foreach var _ in 0 ..< (length - hex.length()) {
         hexString += "0";
     }
     return hexString + hex;
