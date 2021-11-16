@@ -1,8 +1,8 @@
 ## Overview
 
-This module provides APIs to generate and inspect UUIDs (Universally Unique Identifier).
+This module provides APIs to generate and inspect UUIDs (Universally Unique Identifiers).
 
-The UUIDs are generated based on the [RFC 4122](https://www.rfc-editor.org/rfc/rfc4122.html) standard. UUID module supports generating 4 versions of UUIDs.
+The UUIDs are generated based on the [RFC 4122](https://www.rfc-editor.org/rfc/rfc4122.html) standard. This module supports generating 4 versions of UUIDs.
 
 ### Version 1
 
