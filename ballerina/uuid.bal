@@ -246,7 +246,7 @@ public isolated function toBytes(string|Uuid uuid) returns byte[]|Error {
     }
 }
 
-# Converts to a UUID string. Returns an error if the array is invalid.
+# Converts to a UUID string. Returns an error if the UUID is invalid.
 # ```ballerina
 # string s = check uuid:toString([5, 12, 16, 35]);
 # ```
@@ -267,7 +267,7 @@ public isolated function toString(byte[]|Uuid uuid) returns string|error {
     }
 }
 
-# Converts to a UUID record. Returns an error if the array is invalid.
+# Converts to a UUID record. Returns an error if the UUID is invalid.
 # ```ballerina
 # uuid:Uuid r1 = check uuid:toRecord("4397465e-35f9-11eb-adc1-0242ac120002");
 # uuid:Uuid r2 = check uuid:toRecord([10, 20, 30]);
