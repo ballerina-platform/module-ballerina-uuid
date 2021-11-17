@@ -13,14 +13,14 @@ The UUID library is used to generate UUIDs based on the [RFC 4122](https://www.r
 
 1. [Overview](#1-overview)
 2. [Generating UUIDs](#2-generating-uuids)
-    * 2.1. [Version 1](#21-version1)
-    * 2.2. [Version 3](#22-version3)
-    * 2.3. [Version 4](#23-version4)
-    * 2.4. [Version 5](#24-version5)
+    * 2.1. [Version 1](#21-version-1)
+    * 2.2. [Version 3](#22-version-3)
+    * 2.3. [Version 4](#23-version-4)
+    * 2.4. [Version 5](#24-version-5)
     * 2.5. [Nil UUID](#25-nil-uuid)
 3. [Checking the Version of UUIDs](#3-checking-the-version-of-uuids)
 4. [Validating UUIDs](#4-validating-uuids)
-5. [UUID Operations](#4-uuid-operations)
+5. [UUID Operations](#5-uuid-operations)
 
 ## 1. Overview
 This specification elaborates on the functions available in the UUID library.
