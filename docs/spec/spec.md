@@ -7,7 +7,7 @@ _Updated_: 2021/11/16
 _Issue_: [#2351](https://github.com/ballerina-platform/ballerina-standard-library/issues/2351)
 
 # Introduction
-The UUID library is used to generate uuids based on the [RFC 4122](https://www.rfc-editor.org/rfc/rfc4122.html). It is part of Ballerina Standard Library. [Ballerina programming language](https://ballerina.io/) is an open-source programming language for the cloud that makes it easier to use, combine, and create network services.
+The UUID library is used to generate UUIDs based on the [RFC 4122](https://www.rfc-editor.org/rfc/rfc4122.html). It is part of Ballerina Standard Library. [Ballerina programming language](https://ballerina.io/) is an open-source programming language for the cloud that makes it easier to use, combine, and create network services.
 
 # Contents
 
