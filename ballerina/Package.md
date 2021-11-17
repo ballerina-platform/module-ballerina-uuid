@@ -2,7 +2,7 @@
 
 The `uuid` library is one of the standard library packages of the <a target="_blank" href="https://ballerina.io/">Ballerina</a> language.
 
-This package provides APIs to generate and inspect UUIDs (Universally Unique Identifier).
+This package provides APIs to generate and inspect UUIDs (Universally Unique Identifiers).
 
 
 ## Report Issues
