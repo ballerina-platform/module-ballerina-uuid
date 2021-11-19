@@ -28,6 +28,14 @@ This specification elaborates on the functions available in the UUID library.
 ## 2. Generating UUIDs
 UUID module supports generating 4 versions of UUIDs. They are generated as UUID strings or UUID records. The following is the UUID record definition.
 ```
+# Represents a UUID.
+#
+# + timeLow - The low field of the timestamp
+# + timeMid - The middle field of the timestamp
+# + timeHiAndVersion - The high field of the timestamp multiplexed with the version number
+# + clockSeqHiAndReserved - The high field of the clock sequence multiplexed with the variant
+# + clockSeqLo - The low field of the clock sequence
+# + node - The spatially unique node identifier
 public type Uuid readonly & record {
     ints:Unsigned32 timeLow;
     ints:Unsigned16 timeMid;
@@ -36,16 +44,6 @@ public type Uuid readonly & record {
     ints:Unsigned8 clockSeqLo;
     int node;
 };
-```
-
-There are 6 components in a UUID record.
-```
-timeLow - The low field of the timestamp
-timeMid - The middle field of the timestamp
-timeHiAndVersion - The high field of the timestamp multiplexed with the version number
-clockSeqHiAndReserved - The high field of the clock sequence multiplexed with the variant
-clockSeqLo - The low field of the clock sequence
-node - The spatially unique node identifier
 ```
 
 ### 2.1. Version 1
