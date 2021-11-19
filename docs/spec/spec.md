@@ -94,7 +94,7 @@ string uuid4 = uuid:createType4AsString();
 
 The `uuid:createType4AsRecord()` function returns a UUID of type 4 as a `Uuid` record or else a `uuid:Error`.
 ```ballerina
-string uuid5 = check uuid:createType5AsString(uuid:NAME_SPACE_DNS, “ballerina.io”);
+uuid:Uuid uuid4 = check uuid:createType4AsRecord();
 ```
 
 ### 2.4. Version 5
