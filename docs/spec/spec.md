@@ -98,7 +98,7 @@ uuid:Uuid|uuid:Error uuid4 = uuid:createType4AsRecord();
 ### 2.4. Version 5
 This is generated using cryptographic hashing and application-provided text strings. SHA-1 hashing is used.
 
-The uuid:createType5AsString() function returns a UUID as a string or else a uuid:Error.
+The `uuid:createType5AsString()` function returns a UUID as a string or else a `uuid:Error`.
 ```ballerina
 string|uuid:Error uuid5 = uuid:createType5AsString(uuid:NAME_SPACE_DNS, “ballerina.io”);
 ```
