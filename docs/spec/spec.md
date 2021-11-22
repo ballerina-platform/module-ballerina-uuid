@@ -56,7 +56,7 @@ string uuid1 = uuid:createType1AsString();
 
 The `uuid:createType1AsRecord()` function returns a UUID of type 1 as a `Uuid` record.
 ```ballerina
-uuid:Uuid uuid1 = check uuid:createType1AsRecord();
+uuid:Uuid|uuid:Error uuid1 = uuid:createType1AsRecord();
 ```
 
 ### 2.2. Version 3
@@ -73,12 +73,12 @@ NAME_SPACE_NIL- Empty UUID
 
 The `uuid:createType3AsString()` function returns a UUID of type 3 as a string or else a `uuid:Error`.
 ```ballerina
-string uuid3 = check uuid:createType3AsString(uuid:NAME_SPACE_DNS, “ballerina.io”);
+string|uuid:Error uuid3 = uuid:createType3AsString(uuid:NAME_SPACE_DNS, “ballerina.io”);
 ```
 
 The `uuid:createType3AsRecord()` function returns a UUID of type 3 as a `Uuid` record or else a `uuid:Error`.
 ```ballerina
-uuid:Uuid uuid3 = check uuid:createType3AsRecord(uuid:NAME_SPACE_DNS, “ballerina.io”);
+uuid:Uuid|uuid:Error uuid3 = uuid:createType3AsRecord(uuid:NAME_SPACE_DNS, “ballerina.io”);
 ```
 
 ### 2.3. Version 4
@@ -92,7 +92,7 @@ string uuid4 = uuid:createType4AsString();
 
 The `uuid:createType4AsRecord()` function returns a UUID of type 4 as a `Uuid` record or else a `uuid:Error`.
 ```ballerina
-uuid:Uuid uuid4 = check uuid:createType4AsRecord();
+uuid:Uuid|uuid:Error uuid4 = uuid:createType4AsRecord();
 ```
 
 ### 2.4. Version 5
@@ -100,12 +100,12 @@ This is generated using cryptographic hashing and application-provided text stri
 
 The `uuid:createType5AsString()` function returns a UUID of type 5 as a string or else a `uuid:Error`.
 ```ballerina
-string uuid5 = check uuid:createType5AsString(uuid:NAME_SPACE_DNS, “ballerina.io”);
+string|uuid:Error uuid5 = uuid:createType5AsString(uuid:NAME_SPACE_DNS, “ballerina.io”);
 ```
 
 The `uuid:createType5AsRecord()` function returns a UUID of type 5 as a `Uuid` record or else a `uuid:Error`.
 ```ballerina
-uuid:Uuid uuid5 = check uuid:createType5AsRecord(uuid:NAME_SPACE_DNS, “ballerina.io”);
+uuid:Uuid|uuid:Error uuid5 = uuid:createType5AsRecord(uuid:NAME_SPACE_DNS, “ballerina.io”);
 ```
 
 ### 2.5. Nil UUID
@@ -123,7 +123,7 @@ uuid:Uuid nilUUID = uuid:nilAsRecord();
 ## 3. Checking the Version of UUIDs
 The `uuid:getVersion()` function detects the [RFC]((https://www.rfc-editor.org/rfc/rfc4122.html)) version of a UUID. This returns an error if the UUID is invalid.
 ```ballerina
-uuid:Version v = check uuid:getVersion("4397465e-35f9-11eb-adc1-0242ac120002");
+uuid:Version|uuid:Error v = uuid:getVersion("4397465e-35f9-11eb-adc1-0242ac120002");
 ```
 
 ## 4. Validating UUIDs
@@ -137,16 +137,16 @@ UUID module supports the conversion of a UUID between 3 data types; `string`, `b
 
 The `toBytes()` function converts a UUID `string` or a `Uuid` record to a `byte[]`. This returns an error if the UUID is invalid.
 ```ballerina
-byte[] b = check uuid:toBytes(“6ec0bd7f-11c0-43da-975e-2aesass0b”);
+byte[]|uuid:Error b = uuid:toBytes(“6ec0bd7f-11c0-43da-975e-2aesass0b”);
 ```
 
 The `toString()` function converts a `Uuid` record or a `byte[]` to a UUID `string`. This returns an error if the UUID is invalid.
 ```ballerina
-string s = check uuid:toString([5, 12, 16, 35]);
+string|uuid:Error s = uuid:toString([5, 12, 16, 35]);
 ```
 
 The `toRecord()` function converts a UUID `string` or a `byte[]` to a `Uuid` record. This returns an error if the UUID is invalid.
 ```ballerina
-uuid:Uuid r1 = check uuid:toRecord("4397465e-35f9-11eb-adc1-0242ac120002");
-uuid:Uuid r2 = check uuid:toRecord([10, 20, 30]);
+uuid:Uuid|uuid:Error r1 = uuid:toRecord("4397465e-35f9-11eb-adc1-0242ac120002");
+uuid:Uuid|uuid:Error r2 = uuid:toRecord([10, 20, 30]);
 ```
