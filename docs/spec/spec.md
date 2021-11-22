@@ -49,12 +49,12 @@ public type Uuid readonly & record {
 ### 2.1. Version 1
 This is generated using the MAC address of the computer and the time of generation. 
 
-The `uuid:createType1AsString()` function returns a UUID of type 1 as a string.
+The `uuid:createType1AsString()` function returns a UUID as a string.
 ```ballerina
 string uuid1 = uuid:createType1AsString();
 ```
 
-The `uuid:createType1AsRecord()` function returns a UUID of type 1 as a `Uuid` record.
+The `uuid:createType1AsRecord()` function returns a UUID as a `Uuid` record.
 ```ballerina
 uuid:Uuid|uuid:Error uuid1 = uuid:createType1AsRecord();
 ```
@@ -71,12 +71,12 @@ NAME_SPACE_X500- Namespace is an X.500 DN (in DER or a text output format)
 NAME_SPACE_NIL- Empty UUID
 ```
 
-The `uuid:createType3AsString()` function returns a UUID of type 3 as a string or else a `uuid:Error`.
+The `uuid:createType3AsString()` function returns a UUID as a string or else a `uuid:Error`.
 ```ballerina
 string|uuid:Error uuid3 = uuid:createType3AsString(uuid:NAME_SPACE_DNS, “ballerina.io”);
 ```
 
-The `uuid:createType3AsRecord()` function returns a UUID of type 3 as a `Uuid` record or else a `uuid:Error`.
+The `uuid:createType3AsRecord()` function returns a UUID as a `Uuid` record or else a `uuid:Error`.
 ```ballerina
 uuid:Uuid|uuid:Error uuid3 = uuid:createType3AsRecord(uuid:NAME_SPACE_DNS, “ballerina.io”);
 ```
@@ -85,12 +85,12 @@ uuid:Uuid|uuid:Error uuid3 = uuid:createType3AsRecord(uuid:NAME_SPACE_DNS, “ba
 
 This is generated using a pseudo-random number generator. Every bit of the string is randomly generated.
 
-The `uuid:createType4AsString()` function returns a UUID of type 4 as a string.
+The `uuid:createType4AsString()` function returns a UUID as a string.
 ```ballerina
 string uuid4 = uuid:createType4AsString();
 ```
 
-The `uuid:createType4AsRecord()` function returns a UUID of type 4 as a `Uuid` record or else a `uuid:Error`.
+The `uuid:createType4AsRecord()` function returns a UUID as a `Uuid` record or else a `uuid:Error`.
 ```ballerina
 uuid:Uuid|uuid:Error uuid4 = uuid:createType4AsRecord();
 ```
@@ -98,12 +98,12 @@ uuid:Uuid|uuid:Error uuid4 = uuid:createType4AsRecord();
 ### 2.4. Version 5
 This is generated using cryptographic hashing and application-provided text strings. SHA-1 hashing is used.
 
-The `uuid:createType5AsString()` function returns a UUID of type 5 as a string or else a `uuid:Error`.
+The uuid:createType5AsString() function returns a UUID as a string or else a uuid:Error.
 ```ballerina
 string|uuid:Error uuid5 = uuid:createType5AsString(uuid:NAME_SPACE_DNS, “ballerina.io”);
 ```
 
-The `uuid:createType5AsRecord()` function returns a UUID of type 5 as a `Uuid` record or else a `uuid:Error`.
+The `uuid:createType5AsRecord()` function returns a UUID as a `Uuid` record or else a `uuid:Error`.
 ```ballerina
 uuid:Uuid|uuid:Error uuid5 = uuid:createType5AsRecord(uuid:NAME_SPACE_DNS, “ballerina.io”);
 ```
