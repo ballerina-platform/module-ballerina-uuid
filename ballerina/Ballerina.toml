@@ -1,12 +1,12 @@
 [package]
 org = "ballerina"
 name = "uuid"
-version = "1.0.2"
+version = "1.1.0"
 authors = ["Ballerina"]
 keywords = ["version", "unique"]
 repository = "https://github.com/ballerina-platform/module-ballerina-uuid"
 license = ["Apache-2.0"]
-distribution = "slbeta3"
+distribution = "slbeta6"
 
 [[platform.java11.dependency]]
-path = "../native/build/libs/uuid-native-1.0.2-SNAPSHOT.jar"
+path = "../native/build/libs/uuid-native-1.1.0-SNAPSHOT.jar"
