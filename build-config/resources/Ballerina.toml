@@ -5,6 +5,7 @@ version = "@toml.version@"
 authors = ["Ballerina"]
 keywords = ["version", "unique"]
 repository = "https://github.com/ballerina-platform/module-ballerina-uuid"
+icon = "icon.png"
 license = ["Apache-2.0"]
 distribution = "2201.0.0"
 
