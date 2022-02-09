@@ -1,4 +1,4 @@
-Ballerina Uuid Package
+Ballerina Uuid Library
 ===================
 
   [![Build](https://github.com/ballerina-platform/module-ballerina-uuid/actions/workflows/build-timestamped-master.yml/badge.svg)](https://github.com/ballerina-platform/module-ballerina-uuid/actions/workflows/build-timestamped-master.yml)
@@ -7,13 +7,27 @@ Ballerina Uuid Package
   [![Github issues](https://img.shields.io/github/issues/ballerina-platform/ballerina-standard-library/module/uuid.svg?label=Open%20Issues)](https://github.com/ballerina-platform/ballerina-standard-library/labels/module%2Fuuid)
   [![codecov](https://codecov.io/gh/ballerina-platform/module-ballerina-uuid/branch/main/graph/badge.svg)](https://codecov.io/gh/ballerina-platform/module-ballerina-uuid)
 
-The `uuid` package is one of the standard library packages of the<a target="_blank" href="https://ballerina.io/"> Ballerina</a> language.
+This library provides APIs to generate and inspect UUIDs (Universally Unique Identifiers).
 
-This package provides APIs to generate and inspect UUIDs (Universally unique identifier).
+The UUIDs are generated based on the [RFC 4122](https://www.rfc-editor.org/rfc/rfc4122.html) standard. This module supports generating 4 versions of UUIDs.
 
-The UUIDs are generated based on the [RFC 4122](https://www.rfc-editor.org/rfc/rfc4122.html) standard. Other operations include validating a given UUID string and getting the version of a UUID string.
+### Version 1
 
-For example demonstrations of the usage, go to [Ballerina By Examples](https://ballerina.io/swan-lake/learn/by-example/).
+Generated using the MAC address of the computer and the time of generation.
+
+### Version 3
+
+Cryptographic hashing and application-provided text strings are used to generate a UUID. MD5 hashing is used.
+
+### Version 4
+
+Uses a pseudo-random number generator to generate the UUID. Every bit of the string is randomly generated.
+
+### Version 5
+
+Similar to Version 3 but uses SHA-1 instead of MD5.
+
+Other operations include validating a given UUID string and getting the version of a UUID string.
 
 ## Issues and Projects
 
@@ -93,4 +107,6 @@ All contributors are encouraged to read the [Ballerina Code of Conduct](https://
 ## Useful Links
 
 * Chat live with us via our [Slack channel](https://ballerina.io/community/slack/).
-* Post all technical questions on Stack Overflow with the [#ballerina](https://stackoverflow.com/questions/tagged/ballerina) tag.
+* Post all technical questions on Stack Overflow with the [#ballerina](https://stackoverflow.com/questions/tagged/ballerina) tag. 
+* For more information go to the [`uuid` library](https://lib.ballerina.io/ballerina/uuid/latest).
+* For example demonstrations of the usage, go to [Ballerina By Examples](https://ballerina.io/swan-lake/learn/by-example/).
