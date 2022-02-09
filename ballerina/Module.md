@@ -21,3 +21,5 @@ Uses a pseudo-random number generator to generate the UUID. Every bit of the str
 Similar to Version 3 but uses SHA-1 instead of MD5.
 
 Other operations include validating a given UUID string and getting the version of a UUID string.
+
+For information on the operations, which you can perform with the `uuid` module, see the below **Functions**.

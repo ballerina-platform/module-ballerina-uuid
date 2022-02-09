@@ -107,4 +107,6 @@ All contributors are encouraged to read the [Ballerina Code of Conduct](https://
 ## Useful Links
 
 * Chat live with us via our [Slack channel](https://ballerina.io/community/slack/).
-* Post all technical questions on Stack Overflow with the [#ballerina](https://stackoverflow.com/questions/tagged/ballerina) tag.
+* Post all technical questions on Stack Overflow with the [#ballerina](https://stackoverflow.com/questions/tagged/ballerina) tag. 
+* For more information go to the [`uuid` library](https://lib.ballerina.io/ballerina/uuid/latest).
+* For example demonstrations of the usage, go to [Ballerina By Examples](https://ballerina.io/swan-lake/learn/by-example/).
