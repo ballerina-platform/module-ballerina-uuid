@@ -34,7 +34,7 @@ This specification elaborates on the functions available in the UUID library.
 
 ## 2. Generating UUIDs
 UUID module supports generating 4 versions of UUIDs. They are generated as UUID strings or UUID records. The following is the UUID record definition.
-```
+```ballerina
 # Represents a UUID.
 #
 # + timeLow - The low field of the timestamp
@@ -70,7 +70,7 @@ uuid:Uuid|uuid:Error uuid1 = uuid:createType1AsRecord();
 This is generated using cryptographic hashing and application-provided text strings. MD5 hashing is used.
 
 UUID library has a set of pre-defined UUIDs strings of well known namespace IDs.
-```
+```ballerina
 NAME_SPACE_DNS- Namespace is a fully-qualified domain name
 NAME_SPACE_URL- Namespace is a URL
 NAME_SPACE_OID- Namespace is an ISO OID
