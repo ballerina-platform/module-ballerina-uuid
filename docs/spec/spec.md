@@ -70,12 +70,12 @@ uuid:Uuid|uuid:Error uuid1 = uuid:createType1AsRecord();
 This is generated using cryptographic hashing and application-provided text strings. MD5 hashing is used.
 
 UUID library has a set of pre-defined UUIDs strings of well known namespace IDs.
-```ballerina
-NAME_SPACE_DNS- Namespace is a fully-qualified domain name
-NAME_SPACE_URL- Namespace is a URL
-NAME_SPACE_OID- Namespace is an ISO OID
-NAME_SPACE_X500- Namespace is an X.500 DN (in DER or a text output format)
-NAME_SPACE_NIL- Empty UUID
+```
+NAME_SPACE_DNS - Namespace is a fully-qualified domain name
+NAME_SPACE_URL - Namespace is a URL
+NAME_SPACE_OID - Namespace is an ISO OID
+NAME_SPACE_X500 - Namespace is an X.500 DN (in DER or a text output format)
+NAME_SPACE_NIL - Empty UUID
 ```
 
 The `uuid:createType3AsString()` function returns a UUID as a string or else a `uuid:Error`.
