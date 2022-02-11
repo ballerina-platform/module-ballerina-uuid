@@ -34,7 +34,7 @@ This specification elaborates on the functions available in the UUID library.
 
 ## 2. Generating UUIDs
 UUID module supports generating 4 versions of UUIDs. They are generated as UUID strings or UUID records. The following is the UUID record definition.
-```
+```ballerina
 # Represents a UUID.
 #
 # + timeLow - The low field of the timestamp
@@ -71,11 +71,11 @@ This is generated using cryptographic hashing and application-provided text stri
 
 UUID library has a set of pre-defined UUIDs strings of well known namespace IDs.
 ```
-NAME_SPACE_DNS- Namespace is a fully-qualified domain name
-NAME_SPACE_URL- Namespace is a URL
-NAME_SPACE_OID- Namespace is an ISO OID
-NAME_SPACE_X500- Namespace is an X.500 DN (in DER or a text output format)
-NAME_SPACE_NIL- Empty UUID
+NAME_SPACE_DNS - Namespace is a fully-qualified domain name
+NAME_SPACE_URL - Namespace is a URL
+NAME_SPACE_OID - Namespace is an ISO OID
+NAME_SPACE_X500 - Namespace is an X.500 DN (in DER or a text output format)
+NAME_SPACE_NIL - Empty UUID
 ```
 
 The `uuid:createType3AsString()` function returns a UUID as a string or else a `uuid:Error`.
