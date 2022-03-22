@@ -202,7 +202,9 @@ public isolated function getVersion(string uuid) returns Version|Error {
     if !validate(uuid) {
         return error Error("Invalid UUID string provided");
     }
-    int v = getUUIDVersion(uuid);
+
+    UUID u = check fromString(uuid);
+    int v = u.getVersion();
     match v {
         1 => {
             return V1;
@@ -341,4 +343,44 @@ public isolated function toRecord(string|byte[] uuid) returns Uuid|Error {
         node: nodeInt
     };
     return uuidRecord;
+}
+
+# Represents a UUID instance.
+class UUID {
+
+    int leastSigBits;
+    int mostSigBits;
+
+    isolated function init(int leastSigBits, int mostSigBits) {
+        self.leastSigBits = leastSigBits;
+        self.mostSigBits = mostSigBits;
+    }
+
+    isolated function getVersion() returns int {
+        return (self.mostSigBits >> 12) & 0x0f;
+    }
+}
+
+isolated function fromString(string name) returns UUID|Error {
+    Uuid u = check toRecord(name);
+
+    int mostSigBits = u.timeLow & 0xffffffff;
+    mostSigBits <<= 16;
+    mostSigBits |= u.timeMid & 0xffff;
+    mostSigBits <<= 16;
+    mostSigBits |= u.timeHiAndVersion & 0xffff;
+
+    int leastSigBits;
+    string clockSeq = regex:split(name, "-")[3];    
+    int|error clockSeqInt = ints:fromHexString(clockSeq);
+    if clockSeqInt is int {
+        leastSigBits = clockSeqInt & 0xffff;
+    } else {
+        return error Error("Failed to get clockSeq value of the uuid");
+    }
+    
+    leastSigBits <<= 48;
+    leastSigBits |= u.node & 0xffffffffffff;
+
+    return new UUID(leastSigBits, mostSigBits);
 }
