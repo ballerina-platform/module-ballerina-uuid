@@ -1,4 +1,4 @@
-## Package Overview
+## Package overview
 
 This package provides APIs to generate and inspect UUIDs (Universally Unique Identifiers).
 
@@ -23,11 +23,11 @@ Similar to Version 3 but uses SHA-1 instead of MD5.
 Other operations include validating a given UUID string and getting the version of a UUID string.
 
 
-## Report Issues
+## Report issues
 
 To report bugs, request new features, start new discussions, view project boards, etc., go to the [Ballerina standard library parent repository](https://github.com/ballerina-platform/ballerina-standard-library).
 
-## Useful Links
+## Useful links
 
 - Chat live with us via our [Slack channel](https://ballerina.io/community/slack/).
 - Post all technical questions on Stack Overflow with the [#ballerina](https://stackoverflow.com/questions/tagged/ballerina) tag.
