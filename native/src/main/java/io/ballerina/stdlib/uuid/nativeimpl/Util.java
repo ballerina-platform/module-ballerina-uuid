@@ -83,8 +83,4 @@ public class Util {
 
         return StringUtils.fromString(new UUID(high, low).toString());
     }
-
-    public static int getVersion(BString uuid) {
-        return UUID.fromString(uuid.toString()).version();
-    }
 }

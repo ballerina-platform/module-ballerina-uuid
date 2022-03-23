@@ -21,11 +21,6 @@ isolated function getRandomUUID() returns handle = @java:Method {
     'class: "java.util.UUID"
 } external;
 
-isolated function getUUIDVersion(string uuid) returns int = @java:Method {
-    name: "getVersion",
-    'class: "io.ballerina.stdlib.uuid.nativeimpl.Util"
-} external;
-
 isolated function getBytesFromUUID(string uuid) returns byte[] = @java:Method {
     name: "getBytesFromUUID",
     'class: "io.ballerina.stdlib.uuid.nativeimpl.Util"

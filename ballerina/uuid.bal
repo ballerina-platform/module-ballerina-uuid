@@ -202,7 +202,17 @@ public isolated function getVersion(string uuid) returns Version|Error {
     if !validate(uuid) {
         return error Error("Invalid UUID string provided");
     }
-    int v = getUUIDVersion(uuid);
+
+    Uuid u = check toRecord(uuid);
+
+    int mostSigBits = u.timeLow & 0xffffffff;
+    mostSigBits <<= 16;
+    mostSigBits |= u.timeMid & 0xffff;
+    mostSigBits <<= 16;
+    mostSigBits |= u.timeHiAndVersion & 0xffff;
+
+    int v = (mostSigBits >> 12) & 0x0f;
+
     match v {
         1 => {
             return V1;
