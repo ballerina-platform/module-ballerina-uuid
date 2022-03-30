@@ -25,10 +25,10 @@ import ballerina/regex;
 # ```
 #
 # + return - UUID of type 1 as a string
-public isolated function createType1AsString() returns string = @java:Method {
-    name: "generateType1UUID",
-    'class: "io.ballerina.stdlib.uuid.nativeimpl.Util"
-} external;
+public isolated function createType1AsString() returns string {
+    return getUuidFromSignificantBits(get64MostSignificantBitsForVersion1(), 
+    get64LeastSignificantBitsForVersion1());
+}
 
 # Returns a UUID of type 1 as a UUID record.
 # ```ballerina
@@ -54,7 +54,7 @@ public isolated function createType3AsString(NamespaceUUID namespace, string nam
     if trimmedName.length() == 0 {
         return error Error("Name cannot be empty");
     }
-    byte[] namespaceBytes = getBytesFromUUID(namespace);
+    byte[] namespaceBytes = check getBytesFromUUID(namespace);
     byte[] nameBytes = trimmedName.toBytes();
     namespaceBytes.push(...nameBytes);
 
@@ -119,7 +119,7 @@ public isolated function createType5AsString(NamespaceUUID namespace, string nam
     if trimmedName.length() == 0 {
         return error Error("Name cannot be empty");
     }
-    byte[] namespaceBytes = getBytesFromUUID(namespace);
+    byte[] namespaceBytes = check getBytesFromUUID(namespace);
     byte[] nameBytes = trimmedName.toBytes();
     namespaceBytes.push(...nameBytes);
 
