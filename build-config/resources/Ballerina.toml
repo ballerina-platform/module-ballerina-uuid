@@ -8,6 +8,3 @@ repository = "https://github.com/ballerina-platform/module-ballerina-uuid"
 icon = "icon.png"
 license = ["Apache-2.0"]
 distribution = "2201.0.1"
-
-[[platform.java11.dependency]]
-path = "../native/build/libs/uuid-native-@project.version@.jar"

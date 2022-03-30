@@ -172,7 +172,16 @@ isolated function constructComponent(string hex, int length) returns string {
     return hexString + hex;
 }
 
-isolated function nextLong() returns int = @java:Method {
+isolated function nextLong() returns int {
+    handle randomObj = newRandom();
+    return nextLongExtern(randomObj);
+}
+
+isolated function newRandom() returns handle = @java:Constructor {
+   'class: "java.util.Random"
+} external;
+
+isolated function nextLongExtern(handle randomObj) returns int = @java:Method {
     name: "nextLong",
-    'class: "io.ballerina.stdlib.uuid.nativeimpl.Util"
+   'class: "java.util.Random"
 } external;
