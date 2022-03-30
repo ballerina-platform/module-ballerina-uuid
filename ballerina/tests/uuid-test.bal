@@ -32,7 +32,7 @@ isolated function testCreateType1AsRecord() {
 isolated function testCreateType3AsString() returns error? {
     string uuid = check createType3AsString(NAME_SPACE_DNS, "python.org");
     test:assertEquals(uuid, "6fa459ea-ee8a-3ca4-894e-db77e160355e");
-    test:assertEquals(uuid, V3);
+    test:assertEquals(getVersion(uuid), V3);
 }
 
 @test:Config {}
