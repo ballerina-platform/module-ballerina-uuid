@@ -302,25 +302,25 @@ public isolated function toRecord(string|byte[] uuid) returns Uuid|Error {
     } else {
         uuidArray = regex:split(getUuidFromBytes(uuid), "-");
     }
-    ints:Unsigned32|error timeLowResult = <ints:Unsigned32> checkpanic (ints:fromHexString(uuidArray[0]));
+    ints:Unsigned32|error timeLowResult = <ints:Unsigned32>checkpanic (ints:fromHexString(uuidArray[0]));
     if timeLowResult is error {
         return error Error("Failed to get int value of time-low hex string", timeLowResult);
     } else {
         timeLowInt = timeLowResult;
     }
-    ints:Unsigned16|error timeMidResult = <ints:Unsigned16> checkpanic (ints:fromHexString(uuidArray[1]));
+    ints:Unsigned16|error timeMidResult = <ints:Unsigned16>checkpanic (ints:fromHexString(uuidArray[1]));
     if timeMidResult is error {
         return error Error("Failed to get int value of time-mid hex string", timeMidResult);
     } else {
         timeMidInt = timeMidResult;
     }
-    ints:Unsigned16|error timeHiAndVersionResult = <ints:Unsigned16> checkpanic (ints:fromHexString(uuidArray[2]));
+    ints:Unsigned16|error timeHiAndVersionResult = <ints:Unsigned16>checkpanic (ints:fromHexString(uuidArray[2]));
     if timeHiAndVersionResult is error {
         return error Error("Failed to get int value of time-hi-and-version hex string", timeHiAndVersionResult);
     } else {
         timeHiAndVersionInt = timeHiAndVersionResult;
     }
-    ints:Unsigned8|error clockSeqHiAndReservedResult = <ints:Unsigned8> checkpanic (ints:fromHexString(
+    ints:Unsigned8|error clockSeqHiAndReservedResult = <ints:Unsigned8>checkpanic (ints:fromHexString(
     uuidArray[3].substring(0, 2)));
     if clockSeqHiAndReservedResult is error {
         return error Error("Failed to get int value of clock-seq-hi-and-reserved hex string",
@@ -328,7 +328,7 @@ public isolated function toRecord(string|byte[] uuid) returns Uuid|Error {
     } else {
         clockSeqHiAndReservedInt = clockSeqHiAndReservedResult;
     }
-    ints:Unsigned8|error clockSeqLoResult = <ints:Unsigned8> checkpanic
+    ints:Unsigned8|error clockSeqLoResult = <ints:Unsigned8>checkpanic
     (ints:fromHexString(uuidArray[3].substring(2, 4)));
     if clockSeqLoResult is error {
         return error Error("Failed to get int value of clock-seq-lo hex string", clockSeqLoResult);

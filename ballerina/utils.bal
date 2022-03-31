@@ -117,26 +117,26 @@ isolated function bitsToBytes(int msb, int lsb) returns byte[] {
 
 isolated function bitsToUuid(int mostSigBits, int leastSigBits) returns string {
 
-    byte[] bytes1 = formatUnsignedInt(leastSigBits, 4,12);
+    byte[] bytes1 = formatUnsignedInt(leastSigBits, 4, 12);
     byte[] bytes2 = formatUnsignedInt(leastSigBits >>> 48, 4, 4);
     byte[] bytes3 = formatUnsignedInt(mostSigBits, 4, 4);
     byte[] bytes4 = formatUnsignedInt(mostSigBits >>> 16, 4, 4);
     byte[] bytes5 = formatUnsignedInt(mostSigBits >>> 32, 4, 8);
-    
-    return checkpanic string:fromBytes(constructUuidBytesArray([bytes5,bytes4, bytes3, bytes2, bytes1]));
+
+    return checkpanic string:fromBytes(constructUuidBytesArray([bytes5, bytes4, bytes3, bytes2, bytes1]));
 }
 
 isolated function constructUuidBytesArray(byte[][] byteArrays) returns byte[] {
     byte[] bytes = [];
     int count = 0;
     foreach var byteArray in byteArrays {
-        foreach int i in 0...byteArray.length() - 1 {
+        foreach int i in 0 ... byteArray.length() - 1 {
             bytes.push(byteArray[i]);
         }
         if count < byteArrays.length() - 1 {
             bytes.push("-".toBytes()[0]);
         }
-        count+=1;
+        count += 1;
     }
     return bytes;
 }
@@ -170,12 +170,12 @@ isolated function nextLong() returns int {
 }
 
 isolated function newRandom() returns handle = @java:Constructor {
-   'class: "java.util.Random"
+    'class: "java.util.Random"
 } external;
 
 isolated function nextLongExtern(handle randomObj) returns int = @java:Method {
     name: "nextLong",
-   'class: "java.util.Random"
+    'class: "java.util.Random"
 } external;
 
 isolated function getRandomUUID() returns handle = @java:Method {
