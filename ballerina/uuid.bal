@@ -26,7 +26,7 @@ import ballerina/regex;
 #
 # + return - UUID of type 1 as a string
 public isolated function createType1AsString() returns string {
-    return getUuidFromSignificantBits(generateMostSigBits(), generateLeastSigBits());
+    return bitsToUuid(generateMostSigBits(), generateLeastSigBits());
 }
 
 # Returns a UUID of type 1 as a UUID record.

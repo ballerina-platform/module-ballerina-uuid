@@ -39,7 +39,7 @@ isolated function getBytesFromUuid(string uuid) returns byte[]|Error {
 
     int msb = check getMostSignificantBits(uuidRecord);
     int lsb = check getLeastSignificantBits(uuid, uuidRecord);
-    return getBytesFromSignificantBits(msb, lsb);
+    return bitsToBytes(msb, lsb);
 }
 
 isolated function getMostSignificantBits(Uuid uuid) returns int|Error {
@@ -89,10 +89,10 @@ isolated function getUuidFromBytes(byte[] uuid) returns string {
             ((uuid[14] & 0xFF) << 8) |
             ((uuid[15] & 0xFF) << 0);
 
-    return getUuidFromSignificantBits(msb, lsb);
+    return bitsToUuid(msb, lsb);
 }
 
-isolated function getBytesFromSignificantBits(int msb, int lsb) returns byte[] {
+isolated function bitsToBytes(int msb, int lsb) returns byte[] {
     byte[] result = [];
 
     result[0] = <byte>((msb >> 56) & 0xff);
@@ -116,7 +116,7 @@ isolated function getBytesFromSignificantBits(int msb, int lsb) returns byte[] {
     return result;
 }
 
-isolated function getUuidFromSignificantBits(int mostSigBits, int leastSigBits) returns string {
+isolated function bitsToUuid(int mostSigBits, int leastSigBits) returns string {
 
     byte[] bytes1 = formatUnsignedInt(leastSigBits, 4,12);
     byte[] bytes2 = formatUnsignedInt(leastSigBits >>> 48, 4, 4);
