@@ -63,3 +63,17 @@ public enum NamespaceUUID {
     NAME_SPACE_X500 = "6ba7b814-9dad-11d1-80b4-00c04fd430c8",
     NAME_SPACE_NIL = NIL_UUID
 }
+
+# The duration between the Gregorian time (1582-10-15 0:0:0) and UTC start time (1970-01-01 0:0:0) in seconds.
+const decimal gregorianTimeInSeconds = 12219292800;
+
+# The characters used to generate a UUID string.
+# These characters will be converted to bytes and the UUID string will be derived from the byte array. 
+final string[] & readonly digits = [
+    "0", "1", "2", "3", "4", "5", 
+    "6", "7", "8", "9", "a", "b", 
+    "c", "d", "e", "f", "g", "h", 
+    "i", "j", "k", "l", "m", "n", 
+    "o", "p", "q", "r", "s", "t", 
+    "u", "v", "w", "x", "y", "z"
+];

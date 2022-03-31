@@ -26,8 +26,7 @@ import ballerina/regex;
 #
 # + return - UUID of type 1 as a string
 public isolated function createType1AsString() returns string {
-    return getUuidFromSignificantBits(get64MostSignificantBitsForVersion1(), 
-    get64LeastSignificantBitsForVersion1());
+    return getUuidFromSignificantBits(generateMostSigBits(), generateLeastSigBits());
 }
 
 # Returns a UUID of type 1 as a UUID record.
@@ -54,7 +53,7 @@ public isolated function createType3AsString(NamespaceUUID namespace, string nam
     if trimmedName.length() == 0 {
         return error Error("Name cannot be empty");
     }
-    byte[] namespaceBytes = check getBytesFromUUID(namespace);
+    byte[] namespaceBytes = check getBytesFromUuid(namespace);
     byte[] nameBytes = trimmedName.toBytes();
     namespaceBytes.push(...nameBytes);
 
@@ -64,7 +63,7 @@ public isolated function createType3AsString(NamespaceUUID namespace, string nam
     uuid3[6] = <byte>(uuid3[6] | 0x30);
     uuid3[8] = uuid3[8] & 0x3f;
     uuid3[8] = <byte>(uuid3[8] | 0x80);
-    return getUUIDFromBytes(uuid3);
+    return getUuidFromBytes(uuid3);
 }
 
 # Returns a UUID of type 3 as a UUID record.
@@ -119,7 +118,7 @@ public isolated function createType5AsString(NamespaceUUID namespace, string nam
     if trimmedName.length() == 0 {
         return error Error("Name cannot be empty");
     }
-    byte[] namespaceBytes = check getBytesFromUUID(namespace);
+    byte[] namespaceBytes = check getBytesFromUuid(namespace);
     byte[] nameBytes = trimmedName.toBytes();
     namespaceBytes.push(...nameBytes);
 
@@ -129,7 +128,7 @@ public isolated function createType5AsString(NamespaceUUID namespace, string nam
     uuid5[6] = <byte>(uuid5[6] | 0x50);
     uuid5[8] = uuid5[8] & 0x3f;
     uuid5[8] = <byte>(uuid5[8] | 0x80);
-    return getUUIDFromBytes(uuid5);
+    return getUuidFromBytes(uuid5);
 }
 
 # Returns a UUID of type 5 as a UUID record.
@@ -245,11 +244,11 @@ public isolated function toBytes(string|Uuid uuid) returns byte[]|Error {
         if !validate(uuid) {
             return error Error("Invalid UUID string provided");
         }
-        return getBytesFromUUID(uuid);
+        return getBytesFromUuid(uuid);
     } else {
         var uuidString = toString(uuid);
         if uuidString is string {
-            return getBytesFromUUID(uuidString);
+            return getBytesFromUuid(uuidString);
         } else {
             return error Error("Failed to convert UUID record to a string", uuidString);
         }
@@ -266,7 +265,7 @@ public isolated function toBytes(string|Uuid uuid) returns byte[]|Error {
 # + return - UUID as string, or else a `uuid:Error`
 public isolated function toString(byte[]|Uuid uuid) returns string|error {
     if uuid is byte[] {
-        return getUUIDFromBytes(uuid);
+        return getUuidFromBytes(uuid);
     } else {
         return constructComponent(ints:toHexString(uuid.timeLow), 8) + "-" +
         constructComponent(ints:toHexString(uuid.timeMid), 2) + "-" +
@@ -301,7 +300,7 @@ public isolated function toRecord(string|byte[] uuid) returns Uuid|Error {
         }
         uuidArray = regex:split(uuid, "-");
     } else {
-        uuidArray = regex:split(getUUIDFromBytes(uuid), "-");
+        uuidArray = regex:split(getUuidFromBytes(uuid), "-");
     }
     ints:Unsigned32|error timeLowResult = <ints:Unsigned32> checkpanic (ints:fromHexString(uuidArray[0]));
     if timeLowResult is error {
