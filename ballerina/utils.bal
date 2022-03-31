@@ -35,28 +35,28 @@ isolated function generateMostSigBits() returns int {
 }
 
 isolated function getBytesFromUuid(string uuid) returns byte[]|Error {
-    int msb = check getMostSignificantBits(uuid);
-    int lsb = check getLeastSignificantBits(uuid);
+    Uuid uuidRecord = check toRecord(uuid);
+
+    int msb = check getMostSignificantBits(uuidRecord);
+    int lsb = check getLeastSignificantBits(uuid, uuidRecord);
     return getBytesFromSignificantBits(msb, lsb);
 }
 
-isolated function getMostSignificantBits(string uuid) returns int|Error {
-    Uuid u = check toRecord(uuid);
+isolated function getMostSignificantBits(Uuid uuid) returns int|Error {
 
-    int mostSigBits = u.timeLow & 0xffffffff;
+    int mostSigBits = uuid.timeLow & 0xffffffff;
     mostSigBits <<= 16;
-    mostSigBits |= u.timeMid & 0xffff;
+    mostSigBits |= uuid.timeMid & 0xffff;
     mostSigBits <<= 16;
-    mostSigBits |= u.timeHiAndVersion & 0xffff;
+    mostSigBits |= uuid.timeHiAndVersion & 0xffff;
 
     return mostSigBits;
 }
 
-isolated function getLeastSignificantBits(string uuid) returns int|Error {
-    Uuid u = check toRecord(uuid);
+isolated function getLeastSignificantBits(string uuidString, Uuid uuidRecord) returns int|Error {
 
     int leastSigBits;
-    string clockSeq = regex:split(uuid, "-")[3];
+    string clockSeq = regex:split(uuidString, "-")[3];
     int|error clockSeqInt = int:fromHexString(clockSeq);
     if clockSeqInt is int {
         leastSigBits = clockSeqInt & 0xffff;
@@ -65,7 +65,7 @@ isolated function getLeastSignificantBits(string uuid) returns int|Error {
     }
 
     leastSigBits <<= 48;
-    leastSigBits |= u.node & 0xffffffffffff;
+    leastSigBits |= uuidRecord.node & 0xffffffffffff;
 
     return leastSigBits;
 }
