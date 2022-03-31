@@ -65,7 +65,7 @@ public enum NamespaceUUID {
 }
 
 # The duration between the Gregorian time (1582-10-15 0:0:0) and UTC start time (1970-01-01 0:0:0) in seconds.
-const decimal gregorianTimeInSeconds = 12219292800;
+const decimal GREGORIAN_TIME_IN_SECONDS = 12219292800;
 
 # The characters used to generate a UUID string.
 # These characters will be converted to bytes and the UUID string will be derived from the byte array. 

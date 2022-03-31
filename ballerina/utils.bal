@@ -25,8 +25,7 @@ isolated function generateLeastSigBits() returns int {
 }
 
 isolated function generateMostSigBits() returns int {
-    decimal gregorianTimeInSeconds = 12219292800;
-    time:Utc duration = time:utcAddSeconds(time:utcNow(), gregorianTimeInSeconds);
+    time:Utc duration = time:utcAddSeconds(time:utcNow(), GREGORIAN_TIME_IN_SECONDS);
     int timeInNanos = duration[0] * 10000000 + <int>duration[1] * 100;
 
     int leastSigBitOfTime = (timeInNanos & 0x000000000000FFFF) >> 4;
