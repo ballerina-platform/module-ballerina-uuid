@@ -36,12 +36,12 @@ isolated function generateMostSigBits() returns int {
 isolated function getBytesFromUuid(string uuid) returns byte[]|Error {
     Uuid uuidRecord = check toRecord(uuid);
 
-    int msb = check getMostSignificantBits(uuidRecord);
-    int lsb = check getLeastSignificantBits(uuid, uuidRecord);
+    int msb = check getMostSigBits(uuidRecord);
+    int lsb = check getLeastSigBits(uuid, uuidRecord);
     return bitsToBytes(msb, lsb);
 }
 
-isolated function getMostSignificantBits(Uuid uuid) returns int|Error {
+isolated function getMostSigBits(Uuid uuid) returns int|Error {
 
     int mostSigBits = uuid.timeLow & 0xffffffff;
     mostSigBits <<= 16;
@@ -52,7 +52,7 @@ isolated function getMostSignificantBits(Uuid uuid) returns int|Error {
     return mostSigBits;
 }
 
-isolated function getLeastSignificantBits(string uuidString, Uuid uuidRecord) returns int|Error {
+isolated function getLeastSigBits(string uuidString, Uuid uuidRecord) returns int|Error {
 
     int leastSigBits;
     string clockSeq = regex:split(uuidString, "-")[3];
