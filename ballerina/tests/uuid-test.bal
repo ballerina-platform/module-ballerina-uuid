@@ -18,7 +18,9 @@ import ballerina/test;
 
 @test:Config {}
 isolated function testCreateType1AsString() {
-    test:assertEquals(createType1AsString().length(), 36);
+    string uuid = createType1AsString();
+    test:assertEquals(uuid.length(), 36);
+    test:assertEquals(getVersion(uuid), V1);
 }
 
 @test:Config {}
@@ -27,8 +29,10 @@ isolated function testCreateType1AsRecord() {
 }
 
 @test:Config {}
-isolated function testCreateType3AsString() {
-    test:assertEquals(createType3AsString(NAME_SPACE_DNS, "python.org"), "6fa459ea-ee8a-3ca4-894e-db77e160355e");
+isolated function testCreateType3AsString() returns error? {
+    string uuid = check createType3AsString(NAME_SPACE_DNS, "python.org");
+    test:assertEquals(uuid, "6fa459ea-ee8a-3ca4-894e-db77e160355e");
+    test:assertEquals(getVersion(uuid), V3);
 }
 
 @test:Config {}
@@ -47,7 +51,9 @@ isolated function testCreateType3AsRecord() {
 
 @test:Config {}
 isolated function testCreateType4AsString() {
-    test:assertEquals(createType4AsString().length(), 36);
+    string uuid = createType4AsString();
+    test:assertEquals(uuid.length(), 36);
+    test:assertEquals(getVersion(uuid), V4);
 }
 
 @test:Config {}
@@ -56,8 +62,10 @@ isolated function testCreateType4AsRecord() {
 }
 
 @test:Config {}
-isolated function testCreateType5AsString() {
-    test:assertEquals(createType5AsString(NAME_SPACE_DNS, "python.org"), "886313e1-3b8a-5372-9b90-0c9aee199e5d");
+isolated function testCreateType5AsString() returns error? {
+    string uuid = check createType5AsString(NAME_SPACE_DNS, "python.org");
+    test:assertEquals(uuid, "886313e1-3b8a-5372-9b90-0c9aee199e5d");
+    test:assertEquals(getVersion(uuid), V5);
 }
 
 @test:Config {}
