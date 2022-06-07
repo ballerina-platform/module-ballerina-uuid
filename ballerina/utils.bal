@@ -20,7 +20,7 @@ import ballerina/regex;
 
 isolated function generateLeastSigBits() returns int {
     int random63BitLong = nextLong() & 0x3FFFFFFFFFFFFFFF;
-    int variant3BitFlag = -0x8000000000000000;
+    int variant3BitFlag = int:MIN_VALUE;
     return random63BitLong + variant3BitFlag;
 }
 
