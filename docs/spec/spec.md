@@ -5,7 +5,6 @@ _Reviewers_: @daneshk
 _Created_: 2021/11/16  
 _Updated_: 2022/02/08  
 _Edition_: Swan Lake   
-_Issue_: [#2351](https://github.com/ballerina-platform/ballerina-standard-library/issues/2351)
 
 ## Introduction
 This is the specification for the UUID standard library of [Ballerina language](https://ballerina.io/), which provides APIs to generate UUIDs based on the [RFC 4122](https://www.rfc-editor.org/rfc/rfc4122.html).
