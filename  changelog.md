@@ -1,6 +1,11 @@
 # Change Log
 This file contains all the notable changes done to the Ballerina TCP package through the releases.
 
+## [Unreleased]
+
+### Changed
+- [API docs updated](https://github.com/ballerina-platform/ballerina-standard-library/issues/3463)
+
 ## [1.3.0] - 2022-05-30
 
 ### Updated
