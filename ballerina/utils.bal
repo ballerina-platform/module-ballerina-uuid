@@ -16,7 +16,6 @@
 
 import ballerina/jballerina.java;
 import ballerina/time;
-import ballerina/regex;
 
 isolated function generateLeastSigBits() returns int {
     int random63BitLong = nextLong() & 0x3FFFFFFFFFFFFFFF;
@@ -55,7 +54,7 @@ isolated function getMostSigBits(Uuid uuid) returns int|Error {
 isolated function getLeastSigBits(string uuidString, Uuid uuidRecord) returns int|Error {
 
     int leastSigBits;
-    string clockSeq = regex:split(uuidString, "-")[3];
+    string clockSeq = re`-`.split(uuidString)[3];
     int|error clockSeqInt = int:fromHexString(clockSeq);
     if clockSeqInt is int {
         leastSigBits = clockSeqInt & 0xffff;
