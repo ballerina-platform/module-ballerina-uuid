@@ -72,7 +72,6 @@ subprojects {
 
     dependencies {
         /* Standard libraries */
-        ballerinaStdLibs "io.ballerina.stdlib:regex-ballerina:${project.stdlibRegexVersion}"
         ballerinaStdLibs "io.ballerina.stdlib:crypto-ballerina:${project.stdlibCryptoVersion}"
         // Transitive dependencies
         ballerinaStdLibs "io.ballerina.stdlib:time-ballerina:${project.stdlibTimeVersion}"
