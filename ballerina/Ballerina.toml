@@ -1,10 +1,13 @@
 [package]
 org = "ballerina"
 name = "uuid"
-version = "1.5.1"
+version = "1.6.0"
 authors = ["Ballerina"]
 keywords = ["version", "unique"]
 repository = "https://github.com/ballerina-platform/module-ballerina-uuid"
 icon = "icon.png"
 license = ["Apache-2.0"]
-distribution = "2201.5.0"
+distribution = "2201.7.0"
+
+[platform.java11]
+graalvmCompatible = true
