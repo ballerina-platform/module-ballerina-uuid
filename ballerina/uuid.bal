@@ -148,6 +148,17 @@ public isolated function createType5AsRecord(NamespaceUUID namespace, string nam
     }
 }
 
+# Returns a UUID of type 4 as a string.
+# This function provides a convenient alias for 'createType4AsString()'.
+# ```ballerina
+# string newUUID = uuid:createRandomUuid();
+# ```
+#
+# + return - UUID of type 4 as a string
+public isolated function createRandomUuid() returns string {
+    return createType4AsString();
+}
+
 # Returns a nil UUID as a string.
 # ```ballerina
 # string nilUUID = uuid:nilAsString();

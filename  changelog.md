@@ -1,7 +1,10 @@
 # Change Log
-This file contains all the notable changes done to the Ballerina TCP package through the releases.
+This file contains all the notable changes done to the Ballerina UUID package through the releases.
 
 ## [Unreleased]
+
+### Added
+- [Add a more intuitive `createRandomUuid()` function](https://github.com/ballerina-platform/ballerina-standard-library/issues/4147)
 
 ### Changed
 - [API docs updated](https://github.com/ballerina-platform/ballerina-standard-library/issues/3463)

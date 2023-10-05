@@ -83,6 +83,13 @@ isolated function testCreateType5AsRecord() {
 }
 
 @test:Config {}
+isolated function testCreateRandomUuid() {
+    string uuid = createRandomUuid();
+    test:assertEquals(uuid.length(), 36);
+    test:assertEquals(getVersion(uuid), V4);
+}
+
+@test:Config {}
 isolated function testNilAsString() {
     test:assertEquals(nilAsString(), "00000000-0000-0000-0000-000000000000");
 }
