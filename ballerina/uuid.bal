@@ -164,7 +164,7 @@ public isolated function createRandomUuid() returns string {
 # string nilUUID = uuid:nilAsString();
 # ```
 #
-# + return - nil UUID
+# + return - nil UUID as a string
 public isolated function nilAsString() returns string {
     return NIL_UUID;
 }
@@ -174,7 +174,7 @@ public isolated function nilAsString() returns string {
 # uuid:Uuid nilUUID = uuid:nilAsRecord();
 # ```
 #
-# + return - nil UUID
+# + return - nil UUID as a UUID record
 public isolated function nilAsRecord() returns Uuid {
     Uuid nilUuid = {
         timeLow: 0,
@@ -194,7 +194,7 @@ public isolated function nilAsRecord() returns Uuid {
 #
 # + uuid - UUID string to be validated
 #
-# + return - true if a valied UUID, false if not
+# + return - true if a valid UUID, false if not
 public isolated function validate(string uuid) returns boolean {
     return re`[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}`.isFullMatch(uuid);
 }
