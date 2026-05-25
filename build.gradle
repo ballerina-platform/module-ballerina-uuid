@@ -18,7 +18,7 @@
 
 plugins {
     id "com.github.spotbugs-base"
-    id "com.github.johnrengelman.shadow"
+    id "com.gradleup.shadow"
     id "de.undercouch.download"
     id "net.researchgate.release"
 }
@@ -66,6 +66,14 @@ allprojects {
 
 subprojects {
 
+    plugins.withId('java') {
+        java {
+            toolchain {
+                languageVersion = JavaLanguageVersion.of(25)
+            }
+        }
+    }
+
     configurations {
         ballerinaStdLibs
         jbalTools
@@ -99,6 +107,6 @@ release {
     }
 }
 
-task build {
+tasks.named('build') {
     dependsOn('uuid-ballerina:build')
 }
