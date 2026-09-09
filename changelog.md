@@ -3,6 +3,9 @@ This file contains all the notable changes done to the Ballerina UUID package th
 
 ## [Unreleased]
 
+### Changed
+- [[#9132] Updated Keywords and Reformat README for Connector Store Discoverability](https://github.com/ballerina-platform/ballerina-library/issues/9132)
+
 ### Added
 - [Add a more intuitive `createRandomUuid()` function](https://github.com/ballerina-platform/ballerina-standard-library/issues/4147)
 
