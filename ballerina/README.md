@@ -1,6 +1,11 @@
 ## Overview
 
-This module provides APIs to generate and inspect UUIDs (Universally Unique Identifiers).
+This module provides APIs to generate and inspect UUIDs (Universally Unique Identifiers) based on the RFC 4122 standard, supporting four UUID versions.
+
+### Key Features
+
+- Generate UUIDs using four different versions (MAC address/time, MD5 hash, random, SHA-1 hash)
+- Validate UUID strings and determine their version
 
 The UUIDs are generated based on the [RFC 4122](https://www.rfc-editor.org/rfc/rfc4122.html) standard. This module supports generating 4 versions of UUIDs.
 
@@ -22,4 +27,3 @@ Similar to Version 3 but uses SHA-1 instead of MD5.
 
 Other operations include validating a given UUID string and getting the version of a UUID string.
 
-For information on the operations, which you can perform with the `uuid` module, see the below **Functions**.

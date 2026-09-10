@@ -1,9 +1,9 @@
 [package]
 org = "ballerina"
 name = "uuid"
-version = "1.10.0"
+version = "1.10.1"
 authors = ["Ballerina"]
-keywords = ["version", "unique"]
+keywords = ["version", "unique", "Type/Library", "Area/Built-in", "Name/UUID"]
 repository = "https://github.com/ballerina-platform/module-ballerina-uuid"
 icon = "icon.png"
 license = ["Apache-2.0"]

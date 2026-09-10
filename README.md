@@ -1,5 +1,4 @@
-Ballerina UUID Library
-===================
+# Ballerina UUID Library
 
   [![Build](https://github.com/ballerina-platform/module-ballerina-uuid/actions/workflows/build-timestamped-master.yml/badge.svg)](https://github.com/ballerina-platform/module-ballerina-uuid/actions/workflows/build-timestamped-master.yml)
   [![codecov](https://codecov.io/gh/ballerina-platform/module-ballerina-uuid/branch/main/graph/badge.svg)](https://codecov.io/gh/ballerina-platform/module-ballerina-uuid)
@@ -8,7 +7,9 @@ Ballerina UUID Library
   [![GitHub Last Commit](https://img.shields.io/github/last-commit/ballerina-platform/module-ballerina-uuid.svg)](https://github.com/ballerina-platform/module-ballerina-uuid/commits/main)
   [![Github issues](https://img.shields.io/github/issues/ballerina-platform/ballerina-standard-library/module/uuid.svg?label=Open%20Issues)](https://github.com/ballerina-platform/ballerina-standard-library/labels/module%2Fuuid)
 
-This library provides APIs to generate and inspect UUIDs (Universally Unique Identifiers).
+## Overview
+
+This module provides APIs to generate and inspect UUIDs (Universally Unique Identifiers) based on the RFC 4122 standard, supporting four UUID versions.
 
 The UUIDs are generated based on the [RFC 4122](https://www.rfc-editor.org/rfc/rfc4122.html) standard. This module supports generating 4 versions of UUIDs.
 
@@ -97,7 +98,7 @@ Execute the commands below to build from source.
 
 ## Contribute to Ballerina
 
-As an open source project, Ballerina welcomes contributions from the community. 
+As an open-source project, Ballerina welcomes contributions from the community. 
 
 For more information, go to the [contribution guidelines](https://github.com/ballerina-platform/ballerina-lang/blob/master/CONTRIBUTING.md).
 
