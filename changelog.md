@@ -1,10 +1,14 @@
 # Change Log
 This file contains all the notable changes done to the Ballerina UUID package through the releases.
 
-## [1.10.1] - 2026-10-02
+## [1.10.2] - 2026-10-16
 
 ### Changed
 - [[#9301] Regroup standard library packages under new Area categories](https://github.com/ballerina-platform/ballerina-library/issues/9301)
+
+## [1.10.1] - 2026-10-02
+
+### Changed
 - [[#9132] Updated Keywords and Reformat README for Connector Store Discoverability](https://github.com/ballerina-platform/ballerina-library/issues/9132)
 
 ### Added
